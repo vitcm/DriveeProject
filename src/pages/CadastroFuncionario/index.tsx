@@ -22,6 +22,7 @@ import { Button } from "../../components/Button";
 export function CadastroFuncionario() {
   const optionsBeneficios1 = ["VR+VT", "PIS"];
   const optionsBeneficios2 = ["Plano de saúde", "GynPass"];
+  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   return (
     <Container>
       <Section1>
@@ -31,10 +32,10 @@ export function CadastroFuncionario() {
             <Input title="Nome completo:" type="text" />
           </Line>
           <Line>
-            <Select title="Doc:" />
+            <Select title="Doc:" options={options} />
             <Input title="Nº doc:" type="text" />
             <Input title="CNH:" type="text" />
-            <Select title="Nacionalidade:" />
+            <Select title="Nacionalidade:" options={options} />
           </Line>
           <Line>
             <Input title="E-mail:" type="text" />
@@ -50,7 +51,7 @@ export function CadastroFuncionario() {
         <Line>
           <Input title="Complemento" type="text" />
           <Input title="CEP:" type="text" />
-          <Select title="UF:" />
+          <Select title="UF:" options={options} />
           <Input title="Cidade:" type="text" />
         </Line>
       </Section2>
@@ -61,7 +62,7 @@ export function CadastroFuncionario() {
             <Input title="Endereço:" type="text" />
           </Line>
           <Line>
-            <Select title="País de residência:" />
+            <Select title="País de residência:" options={options} />
             <Input title="Telefone:" type="number" />
           </Line>
         </PersonalEmergency>
@@ -70,10 +71,10 @@ export function CadastroFuncionario() {
         <LeftSide>
           <Title title="EMPRESA" />
           <Line>
-            <Select title="Local de atuação:" />
+            <Select title="Local de atuação:" options={options} />
           </Line>
           <Line>
-            <Select title="Departamento:" />
+            <Select title="Departamento:" options={options} />
           </Line>
         </LeftSide>
         <RightSide>
@@ -93,15 +94,15 @@ export function CadastroFuncionario() {
           <Title title="CONTRATO" />
           <Line>
             <Input title="Salário:" type="number" />
-            <Select title="Cargo:" />
+            <Select title="Cargo:" options={options} />
           </Line>
           <Line>
             <Input title="Carga horária:" type="number" />
             <Input title="Dias da semana:" type="number" />
           </Line>
           <Line>
-            <Select title="Início:" />
-            <Select title="Fim:" />
+            <Select title="Início:" options={options} />
+            <Select title="Fim:" options={options} />
           </Line>
         </LeftSide>
         <RightSide>
@@ -114,7 +115,7 @@ export function CadastroFuncionario() {
           </Line>
           <Title title="STATUS" />
           <Line>
-            <Select title="Situação:" />
+            <Select title="Situação:" options={options} />
             <Button title="Registrar funcionário" minWidth="250px" />
           </Line>
         </RightSide>

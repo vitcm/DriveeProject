@@ -25,4 +25,6 @@ export const Container = styled.div<ButtonPropsStyle>`
   gap: 10px;
 
   font-size: ${(props) => (props.fontSize ? props.fontSize : "15px")};
+
+  cursor: pointer;
 `;
