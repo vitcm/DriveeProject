@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 
 interface RadioButtonProps {
-  options: string[];
+  options: string[] | number[];
+  title?: string;
 }
 
-const RadioButton: React.FC<RadioButtonProps> = ({ options }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+const RadioButton: React.FC<RadioButtonProps> = ({ options, title }) => {
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    null
+  );
 
-  const handleOptionChange = (option: string) => {
+  const handleOptionChange = (option: string | number) => {
     setSelectedOption(option);
   };
 
@@ -20,6 +23,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({ options }) => {
         paddingRight: "10rem",
       }}
     >
+      {title}
       {options.map((option, index) => (
         <label key={index}>
           <input

@@ -1,11 +1,11 @@
-import { Button } from "./components/Button";
-import { Input } from "./components/Input";
-import { ProfileImage } from "./components/ProfileImage";
-import { Select } from "./components/Select";
-import { Title } from "./components/Title";
-import { CadastroFuncionario } from "./pages/CadastroFuncionario";
-
 import "./index.css";
+
+import { SearchInput } from "./components/SearchInput";
+import { List } from "./components/List";
+import { ListaFuncionarios } from "./pages/ListaFuncionarios";
+import { ListaCarros } from "./pages/ListaCarros";
+import { CadastroCarro } from "./pages/CadastroCarro";
+import { CadastroFuncionario } from "./pages/CadastroFuncionario";
 
 function App() {
   return (

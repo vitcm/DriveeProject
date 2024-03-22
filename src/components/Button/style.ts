@@ -7,11 +7,16 @@ interface ButtonPropsStyle {
   height?: string;
   fontSize?: string;
   minWidth?: string;
+  disabled?: boolean;
 }
 
 export const Container = styled.div<ButtonPropsStyle>`
   background-color: ${(props) =>
-    props.color ? props.color : theme.colors.laranja_3};
+    props.disabled
+      ? theme.colors.gray_c3
+      : props.color
+      ? props.color
+      : theme.colors.laranja_3};
   color: ${theme.colors.gray_ee};
   min-width: ${(props) => (props.minWidth ? props.minWidth : "50px")};
   max-width: 200px;
@@ -25,6 +30,5 @@ export const Container = styled.div<ButtonPropsStyle>`
   gap: 10px;
 
   font-size: ${(props) => (props.fontSize ? props.fontSize : "15px")};
-
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "context-menu" : "pointer")};
 `;
