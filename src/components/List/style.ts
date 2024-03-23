@@ -11,8 +11,21 @@ export const Container = styled.div<ContainerProps>`
   background-color: ${theme.colors.gray_dc};
   display: flex;
   flex-direction: column;
-  min-height: ${(props) => props.minRows && props.minRows * 50};
-  overflow-y: auto;
+  min-height: ${(props) => props.minRows && props.minRows * 5}px;
+`;
+
+export const ContainerList = styled.div`
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${theme.colors.laranja_1};
+  }
+  &::-webkit-scrollbar-track {
+    background: ${theme.colors.laranja_3};
+  }
 `;
 
 export const RowHeader = styled.div`

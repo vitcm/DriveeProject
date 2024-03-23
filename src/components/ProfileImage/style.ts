@@ -4,9 +4,14 @@ import theme from "../../styles/theme";
 
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
-export const Container = styled.div`
-  height: 130px;
-  width: 130px;
+interface ProfileImageProps {
+  width?: string;
+  height?: string;
+}
+
+export const Container = styled.div<ProfileImageProps>`
+  height: ${(props) => (props.height ? props.height : "130px")};
+  width: ${(props) => (props.width ? props.width : "130px")};
   border: 3px solid ${theme.colors.laranja_1};
   border-radius: 40px;
   display: flex;
@@ -15,7 +20,7 @@ export const Container = styled.div`
 `;
 
 export const ImgSymbol = styled(PersonOutlineOutlinedIcon)`
-  width: 100px !important;
-  height: 100px !important;
+  width: 80% !important;
+  height: 80% !important;
   color: ${theme.colors.laranja_1};
 `;

@@ -1,16 +1,11 @@
 import "./index.css";
 
-import { SearchInput } from "./components/SearchInput";
-import { List } from "./components/List";
-import { ListaFuncionarios } from "./pages/ListaFuncionarios";
-import { ListaCarros } from "./pages/ListaCarros";
-import { CadastroCarro } from "./pages/CadastroCarro";
-import { CadastroFuncionario } from "./pages/CadastroFuncionario";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <div className="App">
-      <CadastroFuncionario />
+      <AppRoutes />
     </div>
   );
 }

@@ -4,8 +4,13 @@ import { SearchInput } from "../../components/SearchInput";
 import { Select } from "../../components/Select";
 import { List } from "../../components/List";
 import { Button } from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export function ListaFuncionarios() {
+  const navigate = useNavigate();
+  const handleCadastro = () => {
+    navigate("/cadastro-funcionario");
+  };
   const dataList = [
     {
       cpffuncionario: "78978978988",
@@ -41,8 +46,9 @@ export function ListaFuncionarios() {
           title="Cadastrar novo funcionário"
           color="#CB3C12"
           minWidth="250px"
+          onClick={handleCadastro}
         />
-        <Button title="Editar dados funcionário" minWidth="250px" />
+        <Button title="Editar dados funcionário" minWidth="250px" disabled />
       </Section3>
       <Section4>
         <Button title="Cadastrar novo departamento" disabled />

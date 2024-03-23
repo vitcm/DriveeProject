@@ -9,6 +9,7 @@ interface ButtonProps {
   fontSize?: string;
   minWidth?: string;
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 export function Button({
@@ -18,6 +19,7 @@ export function Button({
   fontSize,
   minWidth,
   disabled,
+  onClick,
 }: ButtonProps) {
   const tooltipStyle = {
     backgroundColor: "#c5968886",
@@ -26,6 +28,13 @@ export function Button({
     padding: "8px",
     borderRadius: "4px",
   };
+
+  const handleClick = () => {
+    if (onClick && !disabled) {
+      onClick();
+    }
+  };
+
   return (
     <>
       <Container
@@ -34,12 +43,13 @@ export function Button({
         fontSize={fontSize}
         minWidth={minWidth}
         disabled={disabled}
+        onClick={handleClick}
         data-tooltip-id="tooltipbutton"
         data-tooltip-content={"Botão desabilitado!"}
       >
         {title}
       </Container>
-      <Tooltip id="tooltipbutton" style={tooltipStyle} />
+      {disabled && <Tooltip id="tooltipbutton" style={tooltipStyle} />}
     </>
   );
 }

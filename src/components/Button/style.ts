@@ -31,4 +31,10 @@ export const Container = styled.div<ButtonPropsStyle>`
 
   font-size: ${(props) => (props.fontSize ? props.fontSize : "15px")};
   cursor: ${(props) => (props.disabled ? "context-menu" : "pointer")};
+
+  &:hover {
+    background-color: ${(props) =>
+      props.disabled ? "rgba(200, 105, 77, 0.2)" : theme.colors.laranja_2};
+    transition: 0.6s;
+  }
 `;

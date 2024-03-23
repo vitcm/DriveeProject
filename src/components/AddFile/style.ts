@@ -2,16 +2,19 @@ import styled from "styled-components";
 
 import theme from "../../styles/theme";
 
+import AddIcon from "@mui/icons-material/Add";
+
 export const Container = styled.div`
   border: 3px solid ${theme.colors.laranja_2};
-  background-color: ${theme.colors.gray_ee};
+  background-color: rgba(200, 105, 77, 0.2);
   width: 100%;
   border-radius: 20px;
   height: 35px;
 
   display: flex;
   align-items: center;
-  padding: 0.2rem 1rem;
+  justify-content: space-between;
+  padding: 0.2rem;
   gap: 10px;
 `;
 
@@ -21,9 +24,8 @@ export const Title = styled.div`
   max-width: 40%;
 `;
 
-export const InputInsert = styled.input`
-  background-color: transparent;
-  border: 1px solid transparent;
-  height: 100%;
-  width: 60%;
+export const Plus = styled(AddIcon)`
+  color: ${theme.colors.laranja_2};
+
+  cursor: pointer;
 `;
