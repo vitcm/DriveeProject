@@ -1,0 +1,95 @@
+package back.model;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+
+public class ContratoFuncionario {
+    private long id;
+    private long idFuncionario;
+    private BigDecimal salario;
+    private int cargaHoraria;
+    private String cargo;
+    private int diasDaSemana;
+    private Date inicioContrato;
+    private Date fimDoContrato;
+    
+    public ContratoFuncionario() {
+    }
+
+    public ContratoFuncionario(long idFuncionario, BigDecimal salario, int cargaHoraria, String cargo, int diasDaSemana,
+            Date inicioContrato, Date fimDoContrato) {
+        this.idFuncionario = idFuncionario;
+        this.salario = salario;
+        this.cargaHoraria = cargaHoraria;
+        this.cargo = cargo;
+        this.diasDaSemana = diasDaSemana;
+        this.inicioContrato = inicioContrato;
+        this.fimDoContrato = fimDoContrato;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(long idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public void setSalario(BigDecimal salario) {
+        this.salario = salario;
+    }
+
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public void setCargaHoraria(int cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public int getDiasDaSemana() {
+        return diasDaSemana;
+    }
+
+    public void setDiasDaSemana(int diasDaSemana) {
+        this.diasDaSemana = diasDaSemana;
+    }
+
+    public Date getInicioContrato() {
+        return inicioContrato;
+    }
+
+    public void setInicioContrato(Date inicioContrato) {
+        this.inicioContrato = inicioContrato;
+    }
+
+    public Date getFimDoContrato() {
+        return fimDoContrato;
+    }
+
+    public void setFimDoContrato(Date fimDoContrato) {
+        this.fimDoContrato = fimDoContrato;
+    }
+
+    
+}
