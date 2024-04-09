@@ -14,7 +14,6 @@ public class FilialService {
     private FilialDAO filialDAO;
 
     public void cadastrarFilial(FilialRequestDTO requestDTO) {
-        // Aqui você pode converter o DTO em uma entidade e salvar no banco de dados usando o DAO
         Filial filial = convertDtoToEntity(requestDTO);
         filialDAO.inserirFilial(filial);
     }

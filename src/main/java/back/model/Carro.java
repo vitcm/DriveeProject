@@ -7,47 +7,40 @@ public class Carro {
     private String placa;
     private long chassi;
     private long cor;
-    private int qntPortas;
+    private int quantidadePortas;
     private long direcao;
-    private int qntAirbag;
+    private int quantidadeAirbag;
     private int tamanhoPortaMala;
     private int cilindradas;
-    private long adaptadoPcd;
     private long transmissao;
-    private int qntPassageiros;
+    private int quantidadePassageiros;
     private int ano;
     private long tipoCombustivel;
-    private long licenciamento;
     private boolean ipva;
     private long renavam;
     private long status;
     private double valorDiaria;
     
-    public Carro (){
-
+    public Carro() {
     }
-    
-    public Carro(long id, long categoria, long modelo, String placa, long chassi, long cor, int qntPortas, long direcao,
-            int qntAirbag, int tamanhoPortaMala, int cilindradas, long adaptadoPcd, long transmissao,
-            int qntPassageiros, int ano, long tipoCombustivel, long licenciamento, boolean ipva, long renavam,
-            long status, double valorDiaria) {
-        this.id = id;
+
+    public Carro(long categoria, long modelo, String placa, long chassi, long cor, int quantidadePortas, long direcao,
+            int quantidadeAirbag, int tamanhoPortaMala, int cilindradas, long transmissao, int quantidadePassageiros,
+            int ano, long tipoCombustivel, boolean ipva, long renavam, long status, double valorDiaria) {
         this.categoria = categoria;
         this.modelo = modelo;
         this.placa = placa;
         this.chassi = chassi;
         this.cor = cor;
-        this.qntPortas = qntPortas;
+        this.quantidadePortas = quantidadePortas;
         this.direcao = direcao;
-        this.qntAirbag = qntAirbag;
+        this.quantidadeAirbag = quantidadeAirbag;
         this.tamanhoPortaMala = tamanhoPortaMala;
         this.cilindradas = cilindradas;
-        this.adaptadoPcd = adaptadoPcd;
         this.transmissao = transmissao;
-        this.qntPassageiros = qntPassageiros;
+        this.quantidadePassageiros = quantidadePassageiros;
         this.ano = ano;
         this.tipoCombustivel = tipoCombustivel;
-        this.licenciamento = licenciamento;
         this.ipva = ipva;
         this.renavam = renavam;
         this.status = status;
@@ -102,12 +95,12 @@ public class Carro {
         this.cor = cor;
     }
 
-    public int getQntPortas() {
-        return qntPortas;
+    public int getQuantidadePortas() {
+        return quantidadePortas;
     }
 
-    public void setQntPortas(int qntPortas) {
-        this.qntPortas = qntPortas;
+    public void setQuantidadePortas(int quantidadePortas) {
+        this.quantidadePortas = quantidadePortas;
     }
 
     public long getDirecao() {
@@ -118,12 +111,12 @@ public class Carro {
         this.direcao = direcao;
     }
 
-    public int getQntAirbag() {
-        return qntAirbag;
+    public int getQuantidadeAirbag() {
+        return quantidadeAirbag;
     }
 
-    public void setQntAirbag(int qntAirbag) {
-        this.qntAirbag = qntAirbag;
+    public void setQuantidadeAirbag(int quantidadeAirbag) {
+        this.quantidadeAirbag = quantidadeAirbag;
     }
 
     public int getTamanhoPortaMala() {
@@ -142,14 +135,6 @@ public class Carro {
         this.cilindradas = cilindradas;
     }
 
-    public long getAdaptadoPcd() {
-        return adaptadoPcd;
-    }
-
-    public void setAdaptadoPcd(long adaptadoPcd) {
-        this.adaptadoPcd = adaptadoPcd;
-    }
-
     public long getTransmissao() {
         return transmissao;
     }
@@ -158,12 +143,12 @@ public class Carro {
         this.transmissao = transmissao;
     }
 
-    public int getQntPassageiros() {
-        return qntPassageiros;
+    public int getQuantidadePassageiros() {
+        return quantidadePassageiros;
     }
 
-    public void setQntPassageiros(int qntPassageiros) {
-        this.qntPassageiros = qntPassageiros;
+    public void setQuantidadePassageiros(int quantidadePassageiros) {
+        this.quantidadePassageiros = quantidadePassageiros;
     }
 
     public int getAno() {
@@ -180,14 +165,6 @@ public class Carro {
 
     public void setTipoCombustivel(long tipoCombustivel) {
         this.tipoCombustivel = tipoCombustivel;
-    }
-
-    public long getLicenciamento() {
-        return licenciamento;
-    }
-
-    public void setLicenciamento(long licenciamento) {
-        this.licenciamento = licenciamento;
     }
 
     public boolean isIpva() {
@@ -221,6 +198,8 @@ public class Carro {
     public void setValorDiaria(double valorDiaria) {
         this.valorDiaria = valorDiaria;
     }
-        
-    }
+
+    
+}
+
 

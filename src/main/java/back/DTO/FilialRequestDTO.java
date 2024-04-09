@@ -13,7 +13,6 @@ public class FilialRequestDTO {
     private Date fimContrato;
     private String complemento;
 
-    // Construtores, getters e setters
 
     public FilialRequestDTO() {
     }
@@ -31,7 +30,6 @@ public class FilialRequestDTO {
         this.complemento = complemento;
     }
 
-    // Getters e Setters
 
     public String getNome() {
         return nome;

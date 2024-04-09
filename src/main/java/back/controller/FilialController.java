@@ -26,7 +26,6 @@ public class FilialController {
 
     @PostMapping("/cadastro")
     public ResponseEntity<?> cadastrarFilial(@RequestBody FilialRequestDTO requestDTO) {
-        // Aqui você pode chamar o serviço para salvar os dados no banco de dados
         filialService.cadastrarFilial(requestDTO);
         return ResponseEntity.ok().build();
     }

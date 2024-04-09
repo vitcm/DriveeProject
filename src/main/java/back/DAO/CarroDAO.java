@@ -7,95 +7,82 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import back.DAO.Connect;
 import back.model.Carro;
 
 public class CarroDAO {
-    // Consulta SQL para inserir um novo registro na tabela carro
-    private final String INSERT_QUERY = "INSERT INTO carro (categoria, modelo, placa, chassi, cor, qnt_portas, direcao, qnt_airbag, tamanho_porta_mala, cilindradas, adaptado_pcd, transmissao, qnt_passageiros, ano, tipo_combustivel, licenciamento, ipva, renavam, status, valor_diaria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    // Consulta SQL para selecionar todos os registros da tabela carro
-    private final String SELECT_ALL_QUERY = "SELECT * FROM carro";
     
-    // Método para inserir um novo carro no banco de dados
-    public void inserirCarro(long categoria, long modelo, String placa, long chassi, long cor, int qnt_portas, long direcao, int qnt_airbag, int tamanho_porta_mala, int cilindradas, long adaptado_pcd, long transmissao, int qnt_passageiros, int ano, long tipo_combustivel, long licenciamento, boolean ipva, long renavam, long status, double valor_diaria) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = Connect.getConnection();
-            preparedStatement = connection.prepareStatement(INSERT_QUERY);
-            preparedStatement.setLong(1, categoria);
-            preparedStatement.setLong(2, modelo);
-            preparedStatement.setString(3, placa);
-            preparedStatement.setLong(4, chassi);
-            preparedStatement.setLong(5, cor);
-            preparedStatement.setInt(6, qnt_portas);
-            preparedStatement.setLong(7, direcao);
-            preparedStatement.setInt(8, qnt_airbag);
-            preparedStatement.setInt(9, tamanho_porta_mala);
-            preparedStatement.setInt(10, cilindradas);
-            preparedStatement.setLong(11, adaptado_pcd);
-            preparedStatement.setLong(12, transmissao);
-            preparedStatement.setInt(13, qnt_passageiros);
-            preparedStatement.setInt(14, ano);
-            preparedStatement.setLong(15, tipo_combustivel);
-            preparedStatement.setLong(16, licenciamento);
-            preparedStatement.setBoolean(17, ipva);
-            preparedStatement.setLong(18, renavam);
-            preparedStatement.setLong(19, status);
-            preparedStatement.setDouble(20, valor_diaria);
-
-            preparedStatement.executeUpdate();
+    public long inserirCarro(Carro carro) {
+        String sql = "INSERT INTO public.carro (categoria, modelo, placa, chassi, cor, qnt_portas, direcao, qnt_airbag, tamanho_porta_mala, cilindradas, transmissao, qnt_passageiros, ano, tipo_combustivel, ipva, renavam, status, valor_diaria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        
+        try (Connection con = Connect.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setLong(1, carro.getCategoria());
+            ps.setLong(2, carro.getModelo());
+            ps.setString(3, carro.getPlaca());
+            ps.setLong(4, carro.getChassi());
+            ps.setLong(5, carro.getCor());
+            ps.setInt(6, carro.getQuantidadePortas());
+            ps.setLong(7, carro.getDirecao());
+            ps.setInt(8, carro.getQuantidadeAirbag());
+            ps.setInt(9, carro.getTamanhoPortaMala());
+            ps.setInt(10, carro.getCilindradas());
+            ps.setLong(11, carro.getTransmissao());
+            ps.setInt(12, carro.getQuantidadePassageiros());
+            ps.setInt(13, carro.getAno());
+            ps.setLong(14, carro.getTipoCombustivel());
+            ps.setBoolean(15, carro.isIpva());
+            ps.setLong(16, carro.getRenavam());
+            ps.setLong(17, carro.getStatus());
+            ps.setDouble(18, carro.getValorDiaria());
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getLong("id");
+            } else {
+                throw new SQLException("Erro ao inserir carro, nenhum ID retornado.");
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            Connect.closeConnection(connection, preparedStatement);
+            throw new RuntimeException("Erro ao inserir carro: ", e);
         }
     }
-    
-    // Método para obter todos os carros do banco de dados
     public List<Carro> listarCarros() {
         List<Carro> carros = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = Connect.getConnection();
-            preparedStatement = connection.prepareStatement(SELECT_ALL_QUERY);
-            resultSet = preparedStatement.executeQuery();
+        String sql = "SELECT * FROM public.carro";
+        
+        try (Connection con = Connect.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             
-            while (resultSet.next()) {
-                // Extrai os dados de cada linha do ResultSet e cria um objeto Carro
-                // Você precisará implementar o construtor de Carro e os métodos getters e setters conforme necessário
+            while (rs.next()) {
                 Carro carro = new Carro();
-                carro.setId(resultSet.getLong("id"));
-                carro.setCategoria(resultSet.getLong("categoria"));
-                carro.setModelo(resultSet.getLong("modelo"));
-                carro.setPlaca(resultSet.getString("placa"));
-                carro.setChassi(resultSet.getLong("chassi"));
-                carro.setCor(resultSet.getLong("cor"));
-                carro.setQntPortas(resultSet.getInt("qnt_portas"));
-                carro.setDirecao(resultSet.getLong("direcao"));
-                carro.setQntAirbag(resultSet.getInt("qnt_airbag"));
-                carro.setTamanhoPortaMala(resultSet.getInt("tamanho_porta_mala"));
-                carro.setCilindradas(resultSet.getInt("cilindradas"));
-                carro.setAdaptadoPcd(resultSet.getLong("adaptado_pcd"));
-                carro.setTransmissao(resultSet.getLong("transmissao"));
-                carro.setQntPassageiros(resultSet.getInt("qnt_passageiros"));
-                carro.setAno(resultSet.getInt("ano"));
-                carro.setTipoCombustivel(resultSet.getLong("tipo_combustivel"));
-                carro.setLicenciamento(resultSet.getLong("licenciamento"));
-                carro.setIpva(resultSet.getBoolean("ipva"));
-                carro.setRenavam(resultSet.getLong("renavam"));
-                carro.setStatus(resultSet.getLong("status"));
-                carro.setValorDiaria(resultSet.getDouble("valor_diaria"));
+                carro.setId(rs.getLong("id"));
+                carro.setCategoria(rs.getLong("categoria"));
+                carro.setModelo(rs.getLong("modelo"));
+                carro.setPlaca(rs.getString("placa"));
+                carro.setChassi(rs.getLong("chassi"));
+                carro.setCor(rs.getLong("cor"));
+                carro.setQuantidadePortas(rs.getInt("qnt_portas"));
+                carro.setDirecao(rs.getLong("direcao"));
+                carro.setQuantidadeAirbag(rs.getInt("qnt_airbag"));
+                carro.setTamanhoPortaMala(rs.getInt("tamanho_porta_mala"));
+                carro.setCilindradas(rs.getInt("cilindradas"));
+                carro.setTransmissao(rs.getLong("transmissao"));
+                carro.setQuantidadePassageiros(rs.getInt("qnt_passageiros"));
+                carro.setAno(rs.getInt("ano"));
+                carro.setTipoCombustivel(rs.getLong("tipo_combustivel"));
+                carro.setIpva(rs.getBoolean("ipva"));
+                carro.setRenavam(rs.getLong("renavam"));
+                carro.setStatus(rs.getLong("status"));
+                carro.setValorDiaria(rs.getDouble("valor_diaria"));
                 
                 carros.add(carro);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            Connect.closeConnection(connection, preparedStatement, resultSet);
+            throw new RuntimeException("Erro ao listar carros: ", e);
         }
-        
         return carros;
     }
 }
+
