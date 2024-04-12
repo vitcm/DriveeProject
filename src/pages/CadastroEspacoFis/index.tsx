@@ -17,7 +17,46 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import CheckboxGroup from "../../components/Checkbox";
 
+
+
+
+
 export function CadastroEspacoFis() {
+  
+  const data = {
+    nome: 'Nome da Filial',
+    endereco: 'Endereço da Filial',
+    cep: '12345-678',
+    uf: 'SP',
+    cidade: 'São Paulo',
+    valorAluguel: 1500.00,
+    inicioContrato: '2024-04-08',
+    fimContrato: '2026-04-08',
+    complemento: 'Complemento do endereço'
+  };
+
+  const handleSubmit = async (data: { nome: string; endereco: string; cep: string; uf: string; cidade: string; valorAluguel: number; inicioContrato: string; fimContrato: string; complemento: string; }) => {
+    try {
+        const response = await fetch('http://localhost:8080/filial/cadastro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        if (response.ok) {
+            console.log('Cadastro realizado com sucesso!');
+        } else {
+            const errorMessage = await response.text(); // Obter mensagem de erro do corpo da resposta
+            console.error('Falha ao cadastrar:', errorMessage);
+        }
+    } catch (error) {
+        console.error('Erro ao conectar com o servidor:', error);
+    }
+};
+
+handleSubmit(data);
+  
   const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   const optionsAlvaras = [
     "Alvará de funcionamento",
