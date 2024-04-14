@@ -22,6 +22,7 @@ public class Filial {
     private Date inicioContrato;
     private Date fimContrato;
     private String complemento;
+    private String contrato;
     
     public long getId() {
         return id;

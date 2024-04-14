@@ -13,8 +13,8 @@ public class DiaHorarioFilial {
     private long id;
     
     private long idFilial;
-    private Time horaAbertura;
-    private Time horaFechamento;
+    private String horaAbertura;
+    private String horaFechamento;
     private boolean segunda;
     private boolean terca;
     private boolean quarta;
@@ -39,19 +39,19 @@ public class DiaHorarioFilial {
         this.idFilial = idFilial;
     }
 
-    public Time getHoraAbertura() {
+    public String getHoraAbertura() {
         return horaAbertura;
     }
 
-    public void setHoraAbertura(Time horaAbertura) {
+    public void setHoraAbertura(String horaAbertura) {
         this.horaAbertura = horaAbertura;
     }
 
-    public Time getHoraFechamento() {
+    public String getHoraFechamento() {
         return horaFechamento;
     }
 
-    public void setHoraFechamento(Time horaFechamento) {
+    public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
 

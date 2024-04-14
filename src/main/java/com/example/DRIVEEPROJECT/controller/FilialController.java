@@ -1,6 +1,10 @@
 package com.example.DRIVEEPROJECT.controller;
 
+import com.example.DRIVEEPROJECT.model.Alvara;
+import com.example.DRIVEEPROJECT.model.DiaHorarioFilial;
 import com.example.DRIVEEPROJECT.model.Filial;
+import com.example.DRIVEEPROJECT.service.AlvaraService;
+import com.example.DRIVEEPROJECT.service.DiaHorarioFilialService;
 import com.example.DRIVEEPROJECT.service.FilialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +29,39 @@ public ResponseEntity<String> cadastrarFilial(@RequestBody Filial filial) {
     filialService.saveFilial(filial);
     return new ResponseEntity<>("Filial cadastrada com sucesso", HttpStatus.OK);
 }
+
+    @Autowired
+    private AlvaraService alvaraService;
+
+    @PutMapping ("/filial/cadastroAlvara")
+public ResponseEntity<String> cadastrarAlvara(@RequestBody Alvara alvara) {
+    alvara.setIdFilial(filialService.getLastInsertedFilialId());
+    alvaraService.saveFilial(alvara);
+    return new ResponseEntity<>("Alvara cadastrado com sucesso", HttpStatus.OK);
+}
+
+@Autowired
+private DiaHorarioFilialService diaHorarioFilialService;
+
+@PutMapping ("/filial/cadastroDiaHorarioFilial")
+public ResponseEntity<String> cadastrarDiaHorarioFilial(@RequestBody DiaHorarioFilial diaHorarioFilial) {
+diaHorarioFilial.setIdFilial(filialService.getLastInsertedFilialId());
+diaHorarioFilialService.saveFilial(diaHorarioFilial);
+return new ResponseEntity<>("Dia e Horario cadastrado com sucesso", HttpStatus.OK);
+}
+
+@DeleteMapping ("/filial/deletarFilial")
+public ResponseEntity<String> deletarFilial() {
+    filialService.deleteFilial(filialService.getLastInsertedFilialId());
+    return new ResponseEntity<>("Filial deletado com sucesso", HttpStatus.OK);
+}
+
+@DeleteMapping ("/filial/deletarAlvara")
+public ResponseEntity<String> deletarAlvara() {
+    alvaraService.deleteFilial(alvaraService.getLastInsertedAlvaraId());
+    return new ResponseEntity<>("Alvara deletado com sucesso", HttpStatus.OK);
+}
+
 
 @RequestMapping(value = "/filial/cadastro", method = RequestMethod.OPTIONS)
 public ResponseEntity<?> options() {

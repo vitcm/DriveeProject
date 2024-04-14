@@ -24,7 +24,7 @@ import CheckboxGroup from "../../components/Checkbox";
 export function CadastroEspacoFis() {
   
   const cadastrarFilial = async () => {
-    const data = {
+    const filial = {
       nome: 'Nome da Filial',
       endereco: 'Endereço da Filial',
       cep: '12345-678',
@@ -33,20 +33,86 @@ export function CadastroEspacoFis() {
       valorAluguel: 1500.00,
       inicioContrato: '2024-04-08',
       fimContrato: '2026-04-08',
-      complemento: 'Complemento do endereço'
+      complemento: 'Complemento do endereço',
+      contrato: 'Caminho'
     };
 
+    const alvara = {
+      alvaraFuncionamento: 'alvaraFuncionamento',
+      registroComercial: 'registroComercial',
+      cnpj: 'cnpj',
+      alvaraBombeiros: 'alvaraBombeiros',
+      cadDetran: 'cadDetran',
+      regSindloc: 'regSindloc',
+      lincAmbiental: 'lincAmbiental'
+    };
+
+    const horarioFuncionamento = {
+      horaAbertura: '08:00', 
+      horaFechamento: '18:00',
+      segunda: false,
+      terca: true,
+      quarta: true,
+      quinta: true,
+      sexta: true,
+      sabado: true,
+      domingo: false
+    };
+  
+    //Cadastrar Filial
     try {
       const response = await fetch('http://localhost:8080/filial/cadastro', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(filial)
       });
 
       if (response.ok) {
         console.log('Filial cadastrada com sucesso');
+        //Cadastrar Alvará
+        try {
+          const response = await fetch('http://localhost:8080/filial/cadastroAlvara', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(alvara)
+          });
+    
+          if (response.ok) {
+            console.log('Alvara cadastrado com sucesso');
+            //Cadastrar dia(s) e horario
+            try {
+              const response = await fetch('http://localhost:8080/filial/cadastroDiaHorarioFilial', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(horarioFuncionamento)
+              });
+        
+              if (response.ok) {
+                console.log('Dia e horario cadastrado com sucesso');
+              } else {
+                console.error('Erro ao cadastrar dia e horario');
+                deletarAlvara();
+                deletarFilial();
+              }
+            } catch (error) {
+              console.error('Erro ao enviar requisição:', error);
+              deletarAlvara();
+              deletarFilial();
+            }
+          } else {
+            console.error('Erro ao cadastrar alvara');
+            deletarFilial();
+          }
+        } catch (error) {
+          console.error('Erro ao enviar requisição:', error);
+          deletarFilial();
+        }
       } else {
         console.error('Erro ao cadastrar filial');
       }
@@ -54,6 +120,45 @@ export function CadastroEspacoFis() {
       console.error('Erro ao enviar requisição:', error);
     }
   };
+
+  const deletarFilial = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/filial/deletarFilial', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+
+      if (response.ok) {
+        console.log('Filial deletada com sucesso');
+      } else {
+        console.error('Erro ao deletar filial');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar requisição:', error);
+    }
+  };
+
+  const deletarAlvara = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/filial/deletarAlvara', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+
+      if (response.ok) {
+        console.log('Alvara deletado com sucesso');
+      } else {
+        console.error('Erro ao deletar alvara');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar requisição:', error);
+    }
+  };
+  
 
   const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   const optionsAlvaras = [
