@@ -24,13 +24,11 @@ public class Carro {
     private int quantidadePassageiros;
     private int ano;
     private long tipoCombustivel;
-    private boolean ipva;
+    private long ipva;
     private long renavam;
     private long status;
     private double valorDiaria;
     
-    
-
     public long getId() {
         return id;
     }
@@ -151,11 +149,11 @@ public class Carro {
         this.tipoCombustivel = tipoCombustivel;
     }
 
-    public boolean isIpva() {
+    public long isIpva() {
         return ipva;
     }
 
-    public void setIpva(boolean ipva) {
+    public void setIpva(long ipva) {
         this.ipva = ipva;
     }
 
@@ -183,7 +181,6 @@ public class Carro {
         this.valorDiaria = valorDiaria;
     }
 
-    
 }
 
 

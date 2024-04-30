@@ -25,55 +25,53 @@ public class FilialController {
     private FilialService filialService;
 
     @PutMapping ("/filial/cadastro")
-public ResponseEntity<String> cadastrarFilial(@RequestBody Filial filial) {
-    filialService.saveFilial(filial);
-    return new ResponseEntity<>("Filial cadastrada com sucesso", HttpStatus.OK);
-}
+    public ResponseEntity<String> cadastrarFilial(@RequestBody Filial filial) {
+        filialService.saveFilial(filial);
+        return new ResponseEntity<>("Filial cadastrada com sucesso", HttpStatus.OK);
+    }
 
     @Autowired
     private AlvaraService alvaraService;
 
     @PutMapping ("/filial/cadastroAlvara")
-public ResponseEntity<String> cadastrarAlvara(@RequestBody Alvara alvara) {
-    alvara.setIdFilial(filialService.getLastInsertedFilialId());
-    alvaraService.saveFilial(alvara);
-    return new ResponseEntity<>("Alvara cadastrado com sucesso", HttpStatus.OK);
-}
+    public ResponseEntity<String> cadastrarAlvara(@RequestBody Alvara alvara) {
+        alvara.setIdFilial(filialService.getLastInsertedFilialId());
+        alvaraService.saveFilial(alvara);
+        return new ResponseEntity<>("Alvara cadastrado com sucesso", HttpStatus.OK);
+    }
 
-@Autowired
-private DiaHorarioFilialService diaHorarioFilialService;
+    @Autowired
+    private DiaHorarioFilialService diaHorarioFilialService;
 
-@PutMapping ("/filial/cadastroDiaHorarioFilial")
-public ResponseEntity<String> cadastrarDiaHorarioFilial(@RequestBody DiaHorarioFilial diaHorarioFilial) {
-diaHorarioFilial.setIdFilial(filialService.getLastInsertedFilialId());
-diaHorarioFilialService.saveFilial(diaHorarioFilial);
-return new ResponseEntity<>("Dia e Horario cadastrado com sucesso", HttpStatus.OK);
-}
+    @PutMapping ("/filial/cadastroDiaHorarioFilial")
+    public ResponseEntity<String> cadastrarDiaHorarioFilial(@RequestBody DiaHorarioFilial diaHorarioFilial) {
+    diaHorarioFilial.setIdFilial(filialService.getLastInsertedFilialId());
+    diaHorarioFilialService.saveFilial(diaHorarioFilial);
+    return new ResponseEntity<>("Dia e Horario cadastrado com sucesso", HttpStatus.OK);
+    }
 
-@DeleteMapping ("/filial/deletarFilial")
-public ResponseEntity<String> deletarFilial() {
-    filialService.deleteFilial(filialService.getLastInsertedFilialId());
-    return new ResponseEntity<>("Filial deletado com sucesso", HttpStatus.OK);
-}
+    @DeleteMapping ("/filial/deletarFilial")
+    public ResponseEntity<String> deletarFilial() {
+        filialService.deleteFilial(filialService.getLastInsertedFilialId());
+        return new ResponseEntity<>("Filial deletado com sucesso", HttpStatus.OK);
+    }
 
-@DeleteMapping ("/filial/deletarAlvara")
-public ResponseEntity<String> deletarAlvara() {
-    alvaraService.deleteFilial(alvaraService.getLastInsertedAlvaraId());
-    return new ResponseEntity<>("Alvara deletado com sucesso", HttpStatus.OK);
-}
-
-
-@RequestMapping(value = "/filial/cadastro", method = RequestMethod.OPTIONS)
-public ResponseEntity<?> options() {
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Allow", "OPTIONS, PUT"); // Especifica os métodos permitidos neste endpoint
-    headers.add("Access-Control-Allow-Methods", "OPTIONS, PUT"); // Configura os métodos permitidos para CORS
-    headers.add("Access-Control-Allow-Headers", "Content-Type"); // Configura os cabeçalhos permitidos para CORS
-    return new ResponseEntity<>(headers, HttpStatus.OK);
-}
+    @DeleteMapping ("/filial/deletarAlvara")
+    public ResponseEntity<String> deletarAlvara() {
+        alvaraService.deleteFilial(alvaraService.getLastInsertedAlvaraId());
+        return new ResponseEntity<>("Alvara deletado com sucesso", HttpStatus.OK);
+    }
 
 
-    
+    @RequestMapping(value = "/filial/cadastro", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> options() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Allow", "OPTIONS, PUT"); // Especifica os métodos permitidos neste endpoint
+        headers.add("Access-Control-Allow-Methods", "OPTIONS, PUT"); // Configura os métodos permitidos para CORS
+        headers.add("Access-Control-Allow-Headers", "Content-Type"); // Configura os cabeçalhos permitidos para CORS
+        return new ResponseEntity<>(headers, HttpStatus.OK);
+    }
+
 }
     
 
