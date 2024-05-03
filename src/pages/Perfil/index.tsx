@@ -72,7 +72,7 @@ export function Perfil() {
         <Text>Senha:</Text>
       </Section4>
       <Section5>
-        <Button title="Editar senha" minWidth="250px" disabled />
+        <Button title="Editar senha" $minWidth="250px" disabled />
       </Section5>
     </Container>
   );

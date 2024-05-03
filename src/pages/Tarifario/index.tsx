@@ -71,7 +71,7 @@ export function Tarifario() {
         <List columns={2} data={dataListExtras} minRows={4} />
       </Section3>
       <Section4>
-        <Button title="Cadastrar extra" minWidth="250px" disabled />
+        <Button title="Cadastrar extra" $minWidth="250px" disabled />
       </Section4>
     </Container>
   );

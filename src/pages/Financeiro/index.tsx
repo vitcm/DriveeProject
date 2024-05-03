@@ -19,7 +19,7 @@ export function Financeiro() {
           <AddFile />
           <Select title="Departamento:" options={options} />
         </Line>
-        <Button title="Enviar documentação" minWidth="100%" disabled />
+        <Button title="Enviar documentação" $minWidth="100%" disabled />
       </Section>
       <Section>
         <Text>
@@ -30,7 +30,7 @@ export function Financeiro() {
           <AddFile />
           <Select title="Departamento:" options={options} />
         </Line>
-        <Button title="Enviar documentação" minWidth="100%" disabled />
+        <Button title="Enviar documentação" $minWidth="100%" disabled />
       </Section>
       <Section>
         <Text>
@@ -41,7 +41,7 @@ export function Financeiro() {
           <Input title="CPF:" type="text" />
           <Input title="Senha:" type="text" />
         </Line>
-        <Button title="Acessar financeiro" minWidth="100%" disabled />
+        <Button title="Acessar financeiro" $minWidth="100%" disabled />
       </Section>
     </Container>
   );

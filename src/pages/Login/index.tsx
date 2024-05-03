@@ -20,7 +20,7 @@ export function Login() {
       <Button
         title="ENTRAR"
         color="#CB3C12"
-        minWidth="250px"
+        $minWidth="250px"
         onClick={handleLogin}
       />
     </Container>

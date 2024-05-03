@@ -116,7 +116,7 @@ export function CadastroFuncionario() {
           <Title title="STATUS" />
           <Line>
             <Select title="Situação:" options={options} />
-            <Button title="Registrar funcionário" minWidth="250px" />
+            <Button title="Registrar funcionário" $minWidth="250px" />
           </Line>
         </RightSide>
       </Section5>

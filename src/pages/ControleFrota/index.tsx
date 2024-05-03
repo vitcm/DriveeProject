@@ -8,7 +8,7 @@ export function ControleFrota() {
   const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   return (
     <Container>
-      <Button title="Ir para gestão de estoque" minWidth="100%" disabled />
+      <Button title="Ir para gestão de estoque" $minWidth="100%" disabled />
       <Section>
         <Text>
           Para cadastrar condições atuais de um carro e manutenção, digite a
@@ -18,7 +18,7 @@ export function ControleFrota() {
           <SearchInput title="" type="text" />
           <Select title="Filtro:" options={options} />
         </Line>
-        <Button title="Manutenção" minWidth="100%" disabled />
+        <Button title="Manutenção" $minWidth="100%" disabled />
       </Section>
       <Section>
         <Text>
@@ -29,7 +29,7 @@ export function ControleFrota() {
           <SearchInput title="" type="text" />
           <Select title="Filtro:" options={options} />
         </Line>
-        <Button title="Manutenção" minWidth="100%" disabled />
+        <Button title="Manutenção" $minWidth="100%" disabled />
       </Section>
     </Container>
   );

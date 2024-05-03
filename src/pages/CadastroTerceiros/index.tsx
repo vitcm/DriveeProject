@@ -83,7 +83,7 @@ export function CadastroTerceiros() {
         </Options>
       </Section2>
       <Section5>
-        <Button title="Registrar manutenção" minWidth="250px" />
+        <Button title="Registrar manutenção" $minWidth="250px" />
       </Section5>
     </Container>
   );

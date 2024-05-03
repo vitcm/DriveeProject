@@ -68,7 +68,7 @@ export function CadastroCarro() {
         <Input title="Valor diária:" type="number" />
       </Section5>
       <Section6>
-        <Button title="Registrar carro" minWidth="250px" />
+        <Button title="Registrar carro" $minWidth="250px" />
       </Section6>
     </Container>
   );

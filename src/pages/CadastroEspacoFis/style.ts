@@ -6,10 +6,11 @@ export const Container = styled.div`
   flex: 1;
   background-color: ${theme.colors.gray_dc};
   padding: 1rem;
-  height: 100vh;
 
   display: flex;
   flex-direction: column;
+
+  gap: 10px;
 `;
 
 export const Section1 = styled.div`
@@ -17,17 +18,12 @@ export const Section1 = styled.div`
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
-
-  margin-bottom: 20px;
-
-  gap: 20px;
+  gap: 25px;
 `;
 
 export const Section2 = styled.div`
   display: flex;
   flex-direction: column;
-
-  gap: 10px;
 
   margin-bottom: 30px;
 `;
@@ -44,8 +40,6 @@ export const Section3 = styled.div`
 export const Section4 = styled.div`
   display: flex;
   flex-direction: column;
-
-  gap: 10px;
 
   margin-bottom: 30px;
 `;
@@ -68,7 +62,19 @@ export const CarData = styled.div`
 export const Line = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  justify-content: space-evenly;
+  width: 100%;
+
+  gap: 10px;
+`;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+
+  margin-top: 20px;
 `;
 
 export const Text = styled.div``;
@@ -76,7 +82,6 @@ export const Text = styled.div``;
 export const Options = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
 `;
 
 export const TextDiv = styled.div``;
@@ -89,4 +94,20 @@ export const TextDoc = styled.div`
   margin-bottom: 7px;
 
   cursor: pointer;
+`;
+
+export const ErrorTag = styled.span`
+  color: ${theme.colors.laranja_1};
+  font-size: 12px;
+  margin-left: 20px;
+  margin-top: 37px;
+  position: absolute;
+`;
+
+export const ErrorColumn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
 `;
