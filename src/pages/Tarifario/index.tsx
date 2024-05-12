@@ -57,7 +57,7 @@ export function Tarifario() {
   const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   return (
     <Container>
-      <Title title="CARROS" color="#C3C3C3" titleColor={"#374957"} />
+      <Title title="CARROS" color="#C3C3C3" $titleColor={"#374957"} />
       <Section1>
         <SearchInput title="" type="text" />
         <Select title="Filtro:" options={options} />
@@ -65,7 +65,7 @@ export function Tarifario() {
       <Section2>
         <List columns={4} data={dataListCarros} minRows={7} />
       </Section2>
-      <Title title="EXTRAS" color="#C3C3C3" titleColor={"#374957"} />
+      <Title title="EXTRAS" color="#C3C3C3" $titleColor={"#374957"} />
       <Section3>
         <SearchInput title="" type="text" />
         <List columns={2} data={dataListExtras} minRows={4} />

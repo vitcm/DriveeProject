@@ -32,7 +32,7 @@ export function Historico() {
       <Title
         title="HISTÓRICO RESERVAS"
         color="#c3c3c3"
-        titleColor={"#374957"}
+        $titleColor={"#374957"}
       />
       <Section1>
         <SearchInput title="" type="text" />

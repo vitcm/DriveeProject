@@ -28,8 +28,8 @@ export const Container = styled.div<ButtonPropsStyle>`
   justify-content: center;
   padding: 0.2rem;
   gap: 10px;
-
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "15px")};
+  font-family: "Bai Jamjuree";
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "14px")};
   cursor: ${(props) => (props.disabled ? "context-menu" : "pointer")};
 
   &:hover {

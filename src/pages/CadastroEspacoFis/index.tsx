@@ -1,7 +1,4 @@
-import React, { useState, forwardRef } from "react";
-import { useForm, Controller } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Section1,
@@ -21,10 +18,19 @@ import {
 import { Select } from "../../components/Select";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import CheckboxGroup from "../../components/Checkbox";
+import CheckBoxImage from "../../components/CheckboxImage";
 import { DateSelect } from "../../components/SelectDate";
+import {
+  fetchCities,
+  fetchStates,
+  timeOfDay,
+  weekDays,
+} from "../../utils/bibli";
+import CheckBox from "../../components/CheckBox";
 
 export function CadastroEspacoFis() {
+  const [states, setStates] = useState<string[]>([]);
+  const [city, setCity] = useState<string[]>([]);
   const [errors, setErrors] = useState({
     nome: "",
     endereco: "",
@@ -36,6 +42,7 @@ export function CadastroEspacoFis() {
     fimContrato: "",
     horarioAbertura: "",
     horarioFechamento: "",
+    diasSemana: "",
   });
 
   // const cadastrarFilial = async () => {
@@ -186,53 +193,27 @@ export function CadastroEspacoFis() {
   //   }
   // };
 
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
-  const optionsAlvaras = [
-    "Alvará de funcionamento",
-    "Registro na junta comercial",
-    "Inscrição no CNPJ",
-    "Alvará do corpo de bombeiros",
-    "Licença ambiental",
-    "Cadastro no DETRAN",
-    "Registro no SINDLOC",
-  ];
-  const optionsDiasSemana = [
-    "Domingo",
-    "Segunda-feira",
-    "Terça-feira",
-    "Quarta-feira",
-    "Quinta-feira",
-    "Sexta-feira",
-    "Sábado",
-  ];
+  //carregar dados do select de ufs
+  async function stateSet() {
+    const options = await fetchStates();
+    const stateCodesAndNames = options.map((x: any) => `${x.sigla}-${x.nome}`);
+    stateCodesAndNames.sort((a: any, b: any) => {
+      if (a < b) return -1;
+      if (a > b) return 1;
+      return 0;
+    });
+    setStates(stateCodesAndNames);
+  }
 
-  // const schema = Yup.object().shape({
-  //   nome: Yup.string().required("Nome obrigatório"),
-  //   endereco: Yup.string().required("Endereço obrigatório"),
-  //   cep: Yup.string().required("CEP obrigatório"),
-  //   uf: Yup.string().required("UF obrigatório"),
-  //   cidade: Yup.string().required("Cidade obrigatória"),
-  //   valorAluguel: Yup.number().required("Valor do aluguel obrigatório"),
-  //   inicioContrato: Yup.string().required("Início do contrato obrigatório"),
-  //   fimContrato: Yup.string().required("Fim do contrato obrigatório"),
-  //   horarioAbertura: Yup.string().required("Horário de abertura obrigatório"),
-  //   horarioFechamento: Yup.string().required(
-  //     "Horário de fechamento obrigatório"
-  //   ),
-  // });
+  //carregar dados do select de cidades
+  async function citySet() {
+    const ufSigla = formData.uf.split("-")[0];
+    const options = await fetchCities(ufSigla);
+    const citiesNames = options.map((x: any) => x.nome);
+    setCity(citiesNames);
+  }
 
-  // const { handleSubmit, register } = useForm({
-  //   resolver: yupResolver(schema),
-  // });
-
-  // const onSubmit = (data: any) => {
-  //   try {
-  //     console.log("OI", data);
-  //   } catch (err: any) {
-  //     console.log("erro:", err);
-  //   }
-  // };
-
+  //dados que entram pro form para finalizar o upload de dados da pág
   const [formData, setFormData] = useState({
     nome: "",
     endereco: "",
@@ -245,13 +226,33 @@ export function CadastroEspacoFis() {
     fimContrato: "",
     horarioAbertura: "",
     horarioFechamento: "",
+    imagemContrato: "",
+    imagemAlvFunc: "",
+    imagemAlvJunt: "",
+    imagemAlvCNPJ: "",
+    imagemAlvBomb: "",
+    imagemAlvAmb: "",
+    imagemAlvDetran: "",
+    imagemAlvSindloc: "",
+    diasSemana: "",
   });
 
+  // mudança de input
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  //add imagem - ainda não funciona
+  const handleAddImage = (imagePath: string, imageName: string) => {
+    setFormData({ ...formData, [imageName]: imagePath });
+  };
+
+  const handleAddDiasSemana = (diasSemana: string) => {
+    setFormData({ ...formData, diasSemana: diasSemana });
+  };
+
+  // mudança de data
   const handleDateInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     name: string
@@ -260,8 +261,22 @@ export function CadastroEspacoFis() {
     setFormData({ ...formData, [name]: value });
   };
 
+  //Faz o submit dos dados da página
   const handleSubmit = () => {
     let hasError = false;
+    setErrors({
+      nome: "",
+      endereco: "",
+      cep: "",
+      uf: "",
+      cidade: "",
+      valorAluguel: "",
+      inicioContrato: "",
+      fimContrato: "",
+      horarioAbertura: "",
+      horarioFechamento: "",
+      diasSemana: "",
+    });
 
     // Verifica se os campos obrigatórios estão preenchidos
     if (!formData.nome) {
@@ -336,14 +351,28 @@ export function CadastroEspacoFis() {
       hasError = true;
     }
 
+    if (!formData.diasSemana) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        diasSemana: "É obrigatório marcar dias de funcionamento!",
+      }));
+      hasError = true;
+    }
+
     if (hasError) {
-      // Se houver erros, não envia o formulário
       return;
     }
 
     console.log("Dados do formulário:", formData);
-    // Lógica para enviar o formulário
   };
+
+  useEffect(() => {
+    stateSet();
+  }, []);
+
+  useEffect(() => {
+    citySet();
+  }, [formData.uf]);
 
   return (
     <Container>
@@ -393,7 +422,7 @@ export function CadastroEspacoFis() {
           <ErrorColumn>
             <Select
               title="UF:"
-              options={options}
+              options={states}
               name="uf"
               value={formData.uf}
               onChange={handleInputChange}
@@ -403,10 +432,11 @@ export function CadastroEspacoFis() {
           <ErrorColumn>
             <Select
               title="Cidade:"
-              options={options}
+              options={city}
               name="cidade"
               value={formData.cidade}
               onChange={handleInputChange}
+              disabled={!city.length}
             />
             {errors.cidade && <ErrorTag>{errors.cidade}</ErrorTag>}
           </ErrorColumn>
@@ -445,31 +475,67 @@ export function CadastroEspacoFis() {
         </Line>
       </Section1>
       <Section2>
+        <Text>Anexo de imagens</Text>
         <Options>
-          <Text>Contrato:</Text>
-          <TextDoc style={{ marginTop: "5px" }}>
-            adicionar imagem do documento
-          </TextDoc>
+          <TextDoc>Contrato:</TextDoc>
+          <CheckBoxImage
+            label="Contrato"
+            onSave={(path) => handleAddImage(path, "imagemContrato")}
+            name="imagemTeste"
+            value={formData.imagemContrato}
+          />
         </Options>
-        <Text>Alvarás:</Text>
+        <TextDoc>Alvarás:</TextDoc>
         <Options>
-          <CheckboxGroup options={optionsAlvaras} />
-          <TextDiv>
-            <TextDoc>adicionar imagem do documento</TextDoc>
-            <TextDoc>adicionar imagem do documento</TextDoc>
-            <TextDoc>adicionar imagem do documento</TextDoc>
-            <TextDoc>adicionar imagem do documento</TextDoc>
-            <TextDoc>adicionar imagem do documento</TextDoc>
-            <TextDoc>adicionar imagem do documento</TextDoc>
-            <TextDoc>adicionar imagem do documento</TextDoc>
-          </TextDiv>
+          <CheckBoxImage
+            label="Alvará de funcionamento"
+            onSave={(path) => handleAddImage(path, "imagemAlvFunc")}
+            name="imagemTeste"
+            value={formData.imagemAlvFunc}
+          />
+          <CheckBoxImage
+            label="Registro na junta comercial"
+            onSave={(path) => handleAddImage(path, "imagemAlvJunt")}
+            name="imagemTeste"
+            value={formData.imagemAlvJunt}
+          />
+          <CheckBoxImage
+            label="Inscrição no CNPJ"
+            onSave={(path) => handleAddImage(path, "imagemAlvCNPJ")}
+            name="imagemTeste"
+            value={formData.imagemAlvCNPJ}
+          />
+          <CheckBoxImage
+            label="Alvará do corpo de bombeiros"
+            onSave={(path) => handleAddImage(path, "imagemAlvBomb")}
+            name="imagemTeste"
+            value={formData.imagemAlvBomb}
+          />
+          <CheckBoxImage
+            label="Licença ambiental"
+            onSave={(path) => handleAddImage(path, "imagemAlvAmb")}
+            name="imagemTeste"
+            value={formData.imagemAlvAmb}
+          />
+          <CheckBoxImage
+            label="Cadastro no DETRAN"
+            onSave={(path) => handleAddImage(path, "imagemAlvDetran")}
+            name="imagemTeste"
+            value={formData.imagemAlvDetran}
+          />
+          <CheckBoxImage
+            label="Registro no SINDLOC"
+            onSave={(path) => handleAddImage(path, "imagemAlvSindloc")}
+            name="imagemTeste"
+            value={formData.imagemAlvSindloc}
+          />
         </Options>
       </Section2>
       <Section3>
         <ErrorColumn>
           <Select
             title="Horário de abertura:"
-            options={options}
+            options={timeOfDay()}
             name="horarioAbertura"
             value={formData.horarioAbertura}
             onChange={handleInputChange}
@@ -481,7 +547,7 @@ export function CadastroEspacoFis() {
         <ErrorColumn>
           <Select
             title="Horário de fechamento:"
-            options={options}
+            options={timeOfDay()}
             name="horarioFechamento"
             value={formData.horarioFechamento}
             onChange={handleInputChange}
@@ -493,7 +559,14 @@ export function CadastroEspacoFis() {
       </Section3>
       <Section4>
         <Text>Dias de funcionamento</Text>
-        <CheckboxGroup options={optionsDiasSemana} />
+        <ErrorColumn>
+          <CheckBox options={weekDays()} onChange={handleAddDiasSemana} />
+          {errors.diasSemana && (
+            <ErrorTag style={{ marginTop: "125px" }}>
+              {errors.diasSemana}
+            </ErrorTag>
+          )}
+        </ErrorColumn>
       </Section4>
       <Section5>
         <Button

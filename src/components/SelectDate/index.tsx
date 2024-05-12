@@ -2,19 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { Container, ArrowDown } from "./style";
-
-// const customDatePickerStyles = {
-//   datePicker: {
-//     border: "none",
-//     backgroundColor: "transparent",
-//   },
-//   input: {
-//     fontSize: "15px",
-//     color: "#030115",
-//     maxWidth: " 80%",
-//   },
-// };
+import { Container, ArrowDown, PlaceHolder, DivDatePicker } from "./style";
 
 interface DateSelectProps {
   title: string;
@@ -29,44 +17,29 @@ export function DateSelect({ title, name, value, onChange }: DateSelectProps) {
   );
   const datePickerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        datePickerRef.current &&
-        !datePickerRef.current.contains(event.target as Node)
-      ) {
-        // Fechar o seletor de datas quando clicar fora dele
-        setSelectedDate(null);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
-    onChange &&
+    if (date) {
       onChange({
         target: {
           name,
-          value: date ? date.toISOString().split("T")[0] : "", // Convertendo para formato AAAA-MM-DD
+          value: date.toISOString().split("T")[0],
           type: "date",
         },
       } as React.ChangeEvent<HTMLInputElement>);
+    }
   };
 
   return (
     <Container ref={datePickerRef}>
-      <DatePicker
-        selected={selectedDate}
-        onChange={handleDateChange}
-        dateFormat="yyyy-MM-dd"
-        placeholderText={title}
-      />
-      <ArrowDown />
+      <PlaceHolder>{title}</PlaceHolder>
+      <DivDatePicker>
+        <DatePicker
+          selected={selectedDate}
+          onChange={handleDateChange}
+          dateFormat="dd-MM-yyyy"
+        />
+      </DivDatePicker>
     </Container>
   );
 }

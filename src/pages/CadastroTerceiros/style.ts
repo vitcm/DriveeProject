@@ -89,6 +89,7 @@ export const OptionsContrato = styled.div`
 export const TextDiv = styled.div``;
 
 export const TextDoc = styled.div`
+  font-family: "Bai Jamjuree";
   font-size: 10px;
   text-decoration: underline;
   color: #5f788b;

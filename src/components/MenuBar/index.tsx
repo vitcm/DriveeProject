@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container } from "./style";
 
-import Logo from "../../components/assets/logo2.png";
+import Logo from "../../assets/logo2.png";
 import { ButtonMenu } from "../ButtonMenu";
 import { useNavigate } from "react-router-dom";
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Container } from "./style";
-import Logo from "../../components/assets/logo2.png";
+import Logo from "../../assets/logo2.png";
 
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";

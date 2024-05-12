@@ -7,9 +7,19 @@ interface SelectProps {
   name?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  bottomPage?: boolean;
 }
 
-export function Select({ title, options, name, value, onChange }: SelectProps) {
+export function Select({
+  title,
+  options,
+  name,
+  value,
+  onChange,
+  disabled,
+  bottomPage,
+}: SelectProps) {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -42,17 +52,22 @@ export function Select({ title, options, name, value, onChange }: SelectProps) {
         target: {
           name,
           value: option,
-          type: "select", // Adicione um tipo para indicar que é um campo de seleção
+          type: "select",
         },
-      } as React.ChangeEvent<HTMLInputElement>); // Cast para o tipo correto
+      } as React.ChangeEvent<HTMLInputElement>);
   };
 
   return (
     <Container ref={selectRef}>
-      <Title onClick={handleToggleOptions}>{selectedOption || title}</Title>
-      <ArrowDown onClick={handleToggleOptions} />
+      <Title $disabled={disabled} onClick={handleToggleOptions}>
+        {selectedOption || title}
+      </Title>
+      <ArrowDown
+        $disabled={disabled}
+        onClick={disabled ? undefined : handleToggleOptions}
+      />
       {showOptions && (
-        <OptionsContainer>
+        <OptionsContainer $bottomPage={bottomPage}>
           {options.map((option, index) => (
             <Option key={index} onClick={() => handleSelectOption(option)}>
               {option}

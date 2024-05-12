@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface CheckboxProps {
   label: string;
@@ -8,27 +8,37 @@ interface CheckboxProps {
 
 function Checkbox({ label, isChecked, onChange }: CheckboxProps) {
   return (
-    <label>
+    <label style={{ fontFamily: "Bai Jamjuree", fontSize: "14px" }}>
       <input type="checkbox" checked={isChecked} onChange={onChange} />
       {label}
     </label>
   );
 }
 
-interface CheckboxGroupProps {
+interface CheckBoxProps {
   options: string[];
+  onChange: (selectedLabels: string) => void;
 }
 
-export default function CheckboxGroup({ options }: CheckboxGroupProps) {
+export default function CheckBox({ options, onChange }: CheckBoxProps) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleCheckboxChange = (option: string) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
+    setSelectedOptions((prevSelectedOptions) => {
+      if (prevSelectedOptions.includes(option)) {
+        return prevSelectedOptions.filter((item) => item !== option);
+      } else {
+        return [...prevSelectedOptions, option];
+      }
+    });
   };
+
+  useEffect(() => {
+    const selectedLabels = selectedOptions
+      .map((opt) => options.find((o) => o === opt))
+      .join(",");
+    onChange(selectedLabels);
+  }, [selectedOptions]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>

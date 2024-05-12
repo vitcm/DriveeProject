@@ -19,7 +19,8 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 15px;
+  font-family: "Bai Jamjuree";
+  font-size: 14px;
   color: ${theme.colors.black};
 `;
 

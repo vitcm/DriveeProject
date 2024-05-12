@@ -63,8 +63,8 @@ export function Perfil() {
         <Title
           title="PARA ALTERAÇÃO DE DADOS PESSOAIS, PROCURAR O RH."
           color="#C3C3C3"
-          titleColor=""
-          maxWidth="600px"
+          $titleColor=""
+          $maxWidth="600px"
         />
       </Section5>
       <Section4>

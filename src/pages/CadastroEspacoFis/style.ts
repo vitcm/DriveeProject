@@ -22,10 +22,16 @@ export const Section1 = styled.div`
 `;
 
 export const Section2 = styled.div`
+  border: 3px solid ${theme.colors.laranja_2};
+  background-color: ${theme.colors.gray_ee};
+  border-radius: 20px;
+  min-width: 400px;
+  margin-top: 10px;
+
   display: flex;
   flex-direction: column;
-
-  margin-bottom: 30px;
+  padding: 0.2rem 1rem;
+  gap: 10px;
 `;
 
 export const Section3 = styled.div`
@@ -77,27 +83,26 @@ export const Column = styled.div`
   margin-top: 20px;
 `;
 
-export const Text = styled.div``;
+export const Text = styled.div`
+  font-family: "Bai Jamjuree";
+`;
 
 export const Options = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const TextDiv = styled.div``;
 
 export const TextDoc = styled.div`
-  font-size: 10px;
+  font-family: "Bai Jamjuree";
+  font-size: 14px;
   text-decoration: underline;
-  color: #5f788b;
-
-  margin-bottom: 7px;
-
-  cursor: pointer;
 `;
 
 export const ErrorTag = styled.span`
   color: ${theme.colors.laranja_1};
+  font-family: "Bai Jamjuree";
   font-size: 12px;
   margin-left: 20px;
   margin-top: 37px;
