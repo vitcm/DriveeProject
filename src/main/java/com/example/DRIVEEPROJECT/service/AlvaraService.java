@@ -1,7 +1,6 @@
 package com.example.DRIVEEPROJECT.service;
 
 import com.example.DRIVEEPROJECT.model.Alvara;
-import com.example.DRIVEEPROJECT.model.Filial;
 import com.example.DRIVEEPROJECT.repository.AlvaraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
