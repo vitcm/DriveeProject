@@ -45,10 +45,10 @@ export function ListaCarros() {
         <Button
           title="Cadastrar novo carro"
           color="#CB3C12"
-          minWidth="250px"
+          $minWidth="250px"
           onClick={handleCadastro}
         />
-        <Button title="Editar dados carro" minWidth="250px" disabled />
+        <Button title="Editar dados carro" $minWidth="250px" disabled />
       </Section3>
     </Container>
   );

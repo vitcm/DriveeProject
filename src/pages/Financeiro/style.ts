@@ -25,6 +25,7 @@ export const Section = styled.div`
 `;
 
 export const Text = styled.div`
+  font-family: "Bai Jamjuree";
   font-size: 18px;
   font-weight: 500;
   color: ${theme.colors.gray_text};

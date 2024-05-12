@@ -2,18 +2,12 @@ import styled from "styled-components";
 
 import theme from "../../styles/theme";
 
-import AddIcon from "@mui/icons-material/Add";
-
 export const Container = styled.div`
-  border: 3px solid ${theme.colors.laranja_2};
-  background-color: rgba(200, 105, 77, 0.2);
-  width: 100%;
   border-radius: 20px;
   height: 35px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0.2rem;
   gap: 10px;
 `;
@@ -22,11 +16,19 @@ export const Title = styled.div`
   font-family: "Bai Jamjuree";
   font-size: 14px;
   color: ${theme.colors.black};
-  max-width: 40%;
+  max-width: 80%;
 `;
 
-export const Plus = styled(AddIcon)`
-  color: ${theme.colors.laranja_2};
+export const CloseButton = styled.div`
+  width: 20px;
+  height: 20px;
+  color: ${theme.colors.laranja_1};
+  border-radius: 2px;
+  background-color: ${theme.colors.gray_d3};
 
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Roboto";
 `;

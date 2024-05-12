@@ -63,8 +63,8 @@ export function Perfil() {
         <Title
           title="PARA ALTERAÇÃO DE DADOS PESSOAIS, PROCURAR O RH."
           color="#C3C3C3"
-          titleColor=""
-          maxWidth="600px"
+          $titleColor=""
+          $maxWidth="600px"
         />
       </Section5>
       <Section4>
@@ -72,7 +72,7 @@ export function Perfil() {
         <Text>Senha:</Text>
       </Section4>
       <Section5>
-        <Button title="Editar senha" minWidth="250px" disabled />
+        <Button title="Editar senha" $minWidth="250px" disabled />
       </Section5>
     </Container>
   );

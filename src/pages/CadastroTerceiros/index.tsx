@@ -15,7 +15,7 @@ import {
 } from "./style";
 import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
-import CheckboxGroup from "../../components/Checkbox";
+import CheckBox from "../../components/CheckboxImage";
 import { Button } from "../../components/Button";
 import TextBox from "../../components/TextBox";
 
@@ -74,16 +74,16 @@ export function CadastroTerceiros() {
         </OptionsContrato>
         <Text>Serviços:</Text>
         <Options>
-          <CheckboxGroup options={optionsServiços1} />
-          <CheckboxGroup options={optionsServiços2} />
+          {/* <CheckBox options={optionsServiços1} />
+          <CheckBox options={optionsServiços2} /> */}
           <Section3>
-            <CheckboxGroup options={optionsServiços3} />
+            {/* <CheckBox options={optionsServiços3} /> */}
             <TextBox height={40} />
           </Section3>
         </Options>
       </Section2>
       <Section5>
-        <Button title="Registrar manutenção" minWidth="250px" />
+        <Button title="Registrar manutenção" $minWidth="250px" />
       </Section5>
     </Container>
   );

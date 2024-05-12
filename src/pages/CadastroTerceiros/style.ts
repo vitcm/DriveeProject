@@ -6,7 +6,6 @@ export const Container = styled.div`
   flex: 1;
   background-color: ${theme.colors.gray_dc};
   padding: 1rem;
-  height: 100vh;
 
   display: flex;
   flex-direction: column;
@@ -90,6 +89,7 @@ export const OptionsContrato = styled.div`
 export const TextDiv = styled.div``;
 
 export const TextDoc = styled.div`
+  font-family: "Bai Jamjuree";
   font-size: 10px;
   text-decoration: underline;
   color: #5f788b;

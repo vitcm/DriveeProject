@@ -2,9 +2,10 @@ import styled from "styled-components";
 
 import theme from "../../styles/theme";
 
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export const Container = styled.div`
+  position: relative;
   border: 3px solid ${theme.colors.laranja_2};
   background-color: ${theme.colors.gray_ee};
   width: 100%;
@@ -13,22 +14,21 @@ export const Container = styled.div`
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.2rem;
+  padding: 0.2rem 1rem;
   gap: 10px;
 `;
 
-export const Title = styled.div`
+export const ArrowDown = styled(KeyboardArrowDownIcon)`
+  cursor: pointer;
+`;
+
+export const PlaceHolder = styled.div`
   font-family: "Bai Jamjuree";
-  font-size: 14px;
+  font-size: 12px;
   color: ${theme.colors.black};
+  max-width: 80%;
 `;
 
-export const InputInsert = styled.input`
-  background-color: transparent;
-  border: 1px solid transparent;
-  height: 100%;
-  min-width: 80%;
+export const DivDatePicker = styled.div`
+  max-width: 50%;
 `;
-
-export const Search = styled(SearchOutlinedIcon)``;

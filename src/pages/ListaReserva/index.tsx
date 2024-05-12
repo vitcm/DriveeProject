@@ -40,7 +40,7 @@ export function ListaReserva() {
         <List columns={4} data={dataList} minRows={18} />
       </Section2>
       <Section3>
-        <Button title="Acessar reservas" minWidth="250px" disabled />
+        <Button title="Acessar reservas" $minWidth="250px" disabled />
       </Section3>
     </Container>
   );

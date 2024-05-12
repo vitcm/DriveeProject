@@ -24,7 +24,7 @@ export const PersonalData = styled.div`
 
   margin-left: 20px;
 
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const Line = styled.div`
@@ -37,7 +37,7 @@ export const Section2 = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 10px;
+  gap: 20px;
 
   margin-bottom: 30px;
 `;
@@ -45,14 +45,14 @@ export const Section2 = styled.div`
 export const Section3 = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   margin-bottom: 30px;
 `;
 
 export const PersonalEmergency = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const Section4 = styled.div`
@@ -66,14 +66,14 @@ export const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const RightSide = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const Section5 = styled.div`
@@ -81,4 +81,21 @@ export const Section5 = styled.div`
   flex-direction: row;
   gap: 50px;
   margin-bottom: 30px;
+`;
+
+export const ErrorColumn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+`;
+
+export const ErrorTag = styled.span`
+  color: ${theme.colors.laranja_1};
+  font-family: "Bai Jamjuree";
+  font-size: 12px;
+  margin-left: 20px;
+  margin-top: 37px;
+  position: absolute;
 `;

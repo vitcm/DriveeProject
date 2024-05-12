@@ -16,14 +16,17 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 15px;
+  font-family: "Bai Jamjuree";
+  font-size: 12px;
   color: ${theme.colors.black};
-  max-width: 40%;
+  max-width: 60%;
 `;
 
 export const InputInsert = styled.input`
+  font-family: "Bai Jamjuree";
+  font-size: 12px;
   background-color: transparent;
   border: 1px solid transparent;
   height: 100%;
-  width: 60%;
+  width: 40%;
 `;

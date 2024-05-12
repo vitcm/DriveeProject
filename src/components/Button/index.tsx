@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Container } from "./style";
 import { Tooltip } from "react-tooltip";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: string;
   title: string;
   height?: string;
   fontSize?: string;
-  minWidth?: string;
+  $minWidth?: string;
   disabled?: boolean;
   onClick?: () => void;
 }
@@ -17,7 +17,7 @@ export function Button({
   title,
   height,
   fontSize,
-  minWidth,
+  $minWidth,
   disabled,
   onClick,
 }: ButtonProps) {
@@ -41,7 +41,7 @@ export function Button({
         color={color}
         height={height}
         fontSize={fontSize}
-        minWidth={minWidth}
+        $minWidth={$minWidth}
         disabled={disabled}
         onClick={handleClick}
         data-tooltip-id="tooltipbutton"

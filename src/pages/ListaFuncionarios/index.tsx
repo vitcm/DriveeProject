@@ -45,10 +45,10 @@ export function ListaFuncionarios() {
         <Button
           title="Cadastrar novo funcionário"
           color="#CB3C12"
-          minWidth="250px"
+          $minWidth="250px"
           onClick={handleCadastro}
         />
-        <Button title="Editar dados funcionário" minWidth="250px" disabled />
+        <Button title="Editar dados funcionário" $minWidth="250px" disabled />
       </Section3>
       <Section4>
         <Button title="Cadastrar novo departamento" disabled />

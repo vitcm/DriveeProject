@@ -6,7 +6,7 @@ interface ButtonPropsStyle {
   color?: string;
   height?: string;
   fontSize?: string;
-  minWidth?: string;
+  $minWidth?: string;
   disabled?: boolean;
 }
 
@@ -18,7 +18,7 @@ export const Container = styled.div<ButtonPropsStyle>`
       ? props.color
       : theme.colors.laranja_3};
   color: ${theme.colors.gray_ee};
-  min-width: ${(props) => (props.minWidth ? props.minWidth : "50px")};
+  min-width: ${(props) => (props.$minWidth ? props.$minWidth : "50px")};
   max-width: 200px;
   border-radius: 20px;
   height: ${(props) => (props.height ? props.height : "25px")};
@@ -28,8 +28,8 @@ export const Container = styled.div<ButtonPropsStyle>`
   justify-content: center;
   padding: 0.2rem;
   gap: 10px;
-
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "15px")};
+  font-family: "Bai Jamjuree";
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "14px")};
   cursor: ${(props) => (props.disabled ? "context-menu" : "pointer")};
 
   &:hover {
