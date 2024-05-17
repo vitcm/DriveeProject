@@ -24,6 +24,15 @@ public class Filial {
     private String complemento;
     private String contrato;
     
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getContrato() {
+        return contrato;
+    }
+    public void setContrato(String contrato) {
+        this.contrato = contrato;
+    }
     public long getId() {
         return id;
     }

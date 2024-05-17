@@ -16,6 +16,15 @@ public class Historico {
     private String cpfCliente;
     private long codReservaCarro;
     private LocalDate dataReserva;
+    private String carro;
+
+    public String getCarro() {
+        return carro;
+    }
+
+    public void setCarro(String carro) {
+        this.carro = carro;
+    }
 
     public long getId() {
         return id;

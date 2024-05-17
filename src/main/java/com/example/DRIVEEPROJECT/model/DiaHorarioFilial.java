@@ -1,6 +1,5 @@
 package com.example.DRIVEEPROJECT.model;
 
-import java.sql.Time;
 
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
