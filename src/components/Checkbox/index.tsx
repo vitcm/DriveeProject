@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 interface CheckboxProps {
-  label: string;
+  label: string | number;
   isChecked: boolean;
   onChange: () => void;
 }
@@ -16,14 +16,16 @@ function Checkbox({ label, isChecked, onChange }: CheckboxProps) {
 }
 
 interface CheckBoxProps {
-  options: string[];
+  options: (string | number)[];
   onChange: (selectedLabels: string) => void;
 }
 
 export default function CheckBox({ options, onChange }: CheckBoxProps) {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<(string | number)[]>(
+    []
+  );
 
-  const handleCheckboxChange = (option: string) => {
+  const handleCheckboxChange = (option: string | number) => {
     setSelectedOptions((prevSelectedOptions) => {
       if (prevSelectedOptions.includes(option)) {
         return prevSelectedOptions.filter((item) => item !== option);
@@ -34,9 +36,7 @@ export default function CheckBox({ options, onChange }: CheckBoxProps) {
   };
 
   useEffect(() => {
-    const selectedLabels = selectedOptions
-      .map((opt) => options.find((o) => o === opt))
-      .join(",");
+    const selectedLabels = selectedOptions.map((opt) => String(opt)).join(",");
     onChange(selectedLabels);
   }, [selectedOptions]);
 
