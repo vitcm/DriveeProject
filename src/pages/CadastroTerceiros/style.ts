@@ -26,7 +26,7 @@ export const Section2 = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 10px;
+  gap: 20px;
 
   margin-bottom: 30px;
 `;
@@ -35,7 +35,7 @@ export const Section3 = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 10px;
+  gap: 20px;
 
   margin-bottom: 30px;
 `;
@@ -44,7 +44,7 @@ export const Section4 = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 10px;
+  gap: 20px;
 
   margin-bottom: 30px;
 `;
@@ -61,7 +61,7 @@ export const CarData = styled.div`
   margin-left: 20px;
   width: 88vw;
 
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const Line = styled.div`
@@ -70,7 +70,9 @@ export const Line = styled.div`
   gap: 20px;
 `;
 
-export const Text = styled.div``;
+export const Text = styled.div`
+  font-family: "Bai Jamjuree";
+`;
 
 export const Options = styled.div`
   width: 100%;
@@ -97,4 +99,21 @@ export const TextDoc = styled.div`
   margin-bottom: 7px;
 
   cursor: pointer;
+`;
+
+export const ErrorColumn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+`;
+
+export const ErrorTag = styled.span`
+  color: ${theme.colors.laranja_1};
+  font-family: "Bai Jamjuree";
+  font-size: 12px;
+  margin-left: 20px;
+  margin-top: 37px;
+  position: absolute;
 `;

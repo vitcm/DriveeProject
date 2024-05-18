@@ -4,29 +4,32 @@ import { SearchInput } from "../../components/SearchInput";
 import { Select } from "../../components/Select";
 import { List } from "../../components/List";
 import { Title } from "../../components/Title";
+import { reservationData } from "../../utils/bibli";
 
 export function Historico() {
-  const dataList = [
-    {
-      codigoReserva: "00001569",
-      CPF: "11122233322",
-      carro: "A8",
-      dataReserva: "23/03/2024",
-    },
-    {
-      codigoReserva: "00000124",
-      CPF: "22233311122",
-      carro: "Mustang",
-      dataReserva: "05/02/2024",
-    },
-    {
-      codigoReserva: "00062584",
-      CPF: "7778889977",
-      carro: "Flying Spur",
-      dataReserva: "15/01/2024",
-    },
-  ];
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
+  const [reservationCarsText, setReservationCarsText] = useState("");
+
+  const handleSearchCarChange = (value: string) => {
+    setReservationCarsText(value);
+  };
+
+  const filterData = (data: Array<{ [key: string]: any }>, query: string) => {
+    if (!query) return data;
+
+    return data.filter((item) => {
+      if (!item || typeof item !== "object") return false;
+
+      return Object.values(item).some((val) =>
+        val ? String(val).toLowerCase().includes(query.toLowerCase()) : false
+      );
+    });
+  };
+
+  const filteredSavedCars = filterData(
+    reservationData() || [],
+    reservationCarsText
+  );
+
   return (
     <Container>
       <Title
@@ -35,11 +38,10 @@ export function Historico() {
         $titleColor={"#374957"}
       />
       <Section1>
-        <SearchInput title="" type="text" />
-        <Select title="Filtro:" options={options} />
+        <SearchInput title="" type="text" onChange={handleSearchCarChange} />
       </Section1>
       <Section2>
-        <List columns={4} data={dataList} minRows={20} />
+        <List columns={4} data={filteredSavedCars} minRows={20} />
       </Section2>
     </Container>
   );

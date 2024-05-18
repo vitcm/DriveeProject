@@ -45,153 +45,155 @@ export function CadastroEspacoFis() {
     diasSemana: "",
   });
 
-  // const cadastrarFilial = async () => {
-  //   const filial = {
-  //     nome: "Nome da Filial",
-  //     endereco: "Endereço da Filial",
-  //     cep: "12345-678",
-  //     uf: "SP",
-  //     cidade: "São Paulo",
-  //     valorAluguel: 1500.0,
-  //     inicioContrato: "2024-04-08",
-  //     fimContrato: "2026-04-08",
-  //     complemento: "Complemento do endereço",
-  //     contrato: "Caminho",
-  //   };
+  const cadastrarFilial = async () => {
+    const filial = {
+      nome: formData.nome,
+      endereco: formData.endereco,
+      complemento: formData.complemento,
+      cep: formData.cep,
+      uf: formData.uf,
+      cidade: formData.cidade,
+      valorAluguel: parseFloat(formData.valorAluguel),
+      inicioContrato: formData.inicioContrato,
+      fimContrato: formData.fimContrato,
+      contrato: formData.imagemContrato,
+    };
 
-  //   const alvara = {
-  //     alvaraFuncionamento: "alvaraFuncionamento",
-  //     registroComercial: "registroComercial",
-  //     cnpj: "cnpj",
-  //     alvaraBombeiros: "alvaraBombeiros",
-  //     cadDetran: "cadDetran",
-  //     regSindloc: "regSindloc",
-  //     lincAmbiental: "lincAmbiental",
-  //   };
+    const alvara = {
+      alvaraFuncionamento: formData.imagemAlvFunc,
+      registroComercial: formData.imagemAlvJunt,
+      cnpj: formData.imagemAlvCNPJ,
+      alvaraBombeiros: formData.imagemAlvBomb,
+      cadDetran: formData.imagemAlvDetran,
+      regSindloc: formData.imagemAlvSindloc,
+      lincAmbiental: formData.imagemAlvAmb,
+    };
 
-  //   const horarioFuncionamento = {
-  //     horaAbertura: "08:00",
-  //     horaFechamento: "18:00",
-  //     segunda: false,
-  //     terca: true,
-  //     quarta: true,
-  //     quinta: true,
-  //     sexta: true,
-  //     sabado: true,
-  //     domingo: false,
-  //   };
+    const horarioFuncionamento = {
+      horaAbertura: formData.horarioAbertura,
+      horaFechamento: formData.horarioFechamento,
+      segunda: !formData.diasSemana.includes("segunda"),
+      terca: !formData.diasSemana.includes("terca"),
+      quarta: !formData.diasSemana.includes("quarta"),
+      quinta: !formData.diasSemana.includes("quinta"),
+      sexta: !formData.diasSemana.includes("sexta"),
+      sabado: !formData.diasSemana.includes("sabado"),
+      domingo: !formData.diasSemana.includes("domingo"),
+    };
 
-  //   //Cadastrar Filial
-  //   try {
-  //     const response = await fetch("http://localhost:8080/filial/cadastro", {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(filial),
-  //     });
+    console.log("aqui", filial, alvara, horarioFuncionamento);
 
-  //     if (response.ok) {
-  //       console.log("Filial cadastrada com sucesso");
-  //       //Cadastrar Alvará
-  //       try {
-  //         const response = await fetch(
-  //           "http://localhost:8080/filial/cadastroAlvara",
-  //           {
-  //             method: "PUT",
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //             },
-  //             body: JSON.stringify(alvara),
-  //           }
-  //         );
+    //Cadastrar Filial
+    try {
+      const response = await fetch("http://localhost:8080/filial/cadastro", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(filial),
+      });
 
-  //         if (response.ok) {
-  //           console.log("Alvara cadastrado com sucesso");
-  //           //Cadastrar dia(s) e horario
-  //           try {
-  //             const response = await fetch(
-  //               "http://localhost:8080/filial/cadastroDiaHorarioFilial",
-  //               {
-  //                 method: "PUT",
-  //                 headers: {
-  //                   "Content-Type": "application/json",
-  //                 },
-  //                 body: JSON.stringify(horarioFuncionamento),
-  //               }
-  //             );
+      if (response.ok) {
+        console.log("Filial cadastrada com sucesso");
+        //Cadastrar Alvará
+        try {
+          const response = await fetch(
+            "http://localhost:8080/filial/cadastroAlvara",
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(alvara),
+            }
+          );
 
-  //             if (response.ok) {
-  //               console.log("Dia e horario cadastrado com sucesso");
-  //             } else {
-  //               console.error("Erro ao cadastrar dia e horario");
-  //               deletarAlvara();
-  //               deletarFilial();
-  //             }
-  //           } catch (error) {
-  //             console.error("Erro ao enviar requisição:", error);
-  //             deletarAlvara();
-  //             deletarFilial();
-  //           }
-  //         } else {
-  //           console.error("Erro ao cadastrar alvara");
-  //           deletarFilial();
-  //         }
-  //       } catch (error) {
-  //         console.error("Erro ao enviar requisição:", error);
-  //         deletarFilial();
-  //       }
-  //     } else {
-  //       console.error("Erro ao cadastrar filial");
-  //     }
-  //   } catch (error) {
-  //     console.error("Erro ao enviar requisição:", error);
-  //   }
-  // };
+          if (response.ok) {
+            console.log("Alvara cadastrado com sucesso");
+            //Cadastrar dia(s) e horario
+            try {
+              const response = await fetch(
+                "http://localhost:8080/filial/cadastroDiaHorarioFilial",
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(horarioFuncionamento),
+                }
+              );
 
-  // const deletarFilial = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8080/filial/deletarFilial",
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
+              if (response.ok) {
+                console.log("Dia e horario cadastrado com sucesso");
+              } else {
+                console.error("Erro ao cadastrar dia e horario");
+                deletarAlvara();
+                deletarFilial();
+              }
+            } catch (error) {
+              console.error("Erro ao enviar requisição:", error);
+              deletarAlvara();
+              deletarFilial();
+            }
+          } else {
+            console.error("Erro ao cadastrar alvara");
+            deletarFilial();
+          }
+        } catch (error) {
+          console.error("Erro ao enviar requisição:", error);
+          deletarFilial();
+        }
+      } else {
+        console.error("Erro ao cadastrar filial");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
 
-  //     if (response.ok) {
-  //       console.log("Filial deletada com sucesso");
-  //     } else {
-  //       console.error("Erro ao deletar filial");
-  //     }
-  //   } catch (error) {
-  //     console.error("Erro ao enviar requisição:", error);
-  //   }
-  // };
+  const deletarFilial = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/filial/deletarFilial",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  // const deletarAlvara = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8080/filial/deletarAlvara",
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
+      if (response.ok) {
+        console.log("Filial deletada com sucesso");
+      } else {
+        console.error("Erro ao deletar filial");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
 
-  //     if (response.ok) {
-  //       console.log("Alvara deletado com sucesso");
-  //     } else {
-  //       console.error("Erro ao deletar alvara");
-  //     }
-  //   } catch (error) {
-  //     console.error("Erro ao enviar requisição:", error);
-  //   }
-  // };
+  const deletarAlvara = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/filial/deletarAlvara",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Alvara deletado com sucesso");
+      } else {
+        console.error("Erro ao deletar alvara");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
 
   //carregar dados do select de ufs
   async function stateSet() {
@@ -363,7 +365,7 @@ export function CadastroEspacoFis() {
       return;
     }
 
-    console.log("Dados do formulário:", formData);
+    cadastrarFilial();
   };
 
   useEffect(() => {

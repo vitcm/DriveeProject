@@ -5,9 +5,9 @@ import { SearchInput } from "../../components/SearchInput";
 import { Select } from "../../components/Select";
 import { AddFile } from "../../components/AddFile";
 import { Input } from "../../components/Input";
+import { departaments } from "../../utils/bibli";
 
 export function Financeiro() {
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   return (
     <Container>
       <Section>
@@ -17,7 +17,7 @@ export function Financeiro() {
         </Text>
         <Line>
           <AddFile />
-          <Select title="Departamento:" options={options} />
+          <Select title="Departamento:" options={departaments()} />
         </Line>
         <Button title="Enviar documentação" $minWidth="100%" disabled />
       </Section>
@@ -28,7 +28,7 @@ export function Financeiro() {
         </Text>
         <Line>
           <AddFile />
-          <Select title="Departamento:" options={options} />
+          <Select title="Departamento:" options={departaments()} />
         </Line>
         <Button title="Enviar documentação" $minWidth="100%" disabled />
       </Section>

@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface TextBoxProps {
   height: number; // Altura do TextBox
+  name?: string;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export default function TextBox({ height }: TextBoxProps) {
-  const [text, setText] = useState("");
-
-  const handleChange = (event: any) => {
-    setText(event.target.value);
-  };
-
+export default function TextBox({
+  height,
+  name,
+  value,
+  onChange,
+}: TextBoxProps) {
   return (
     <textarea
       style={{ height: height + "px" }}
-      value={text}
-      onChange={handleChange}
+      name={name}
+      value={value}
+      onChange={onChange}
     />
   );
 }

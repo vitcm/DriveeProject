@@ -36,6 +36,21 @@ export const fetchCountries = async () => {
   }
 };
 
+export const numberToCurrency = (value?: number) => {
+  const numberFormat = (value || 0.0).toFixed(2).replace(".", ",");
+
+  if (numberFormat) {
+    const [valuePart, decimalPart] = numberFormat.split(",");
+
+    const stringFormated = `R$ ${parseFloat(valuePart || "0").toLocaleString(
+      "pt-BR"
+    )},${decimalPart || "00"}`;
+
+    return stringFormated;
+  }
+  return "R$ 0,00";
+};
+
 // Dados fixos
 export const weekDays = () => {
   return [
@@ -116,7 +131,11 @@ export const jobBenefits = () => {
 };
 
 export const categoryCars = () => {
-  return ["Sedan de Luxo", "SUV de Luxo", "Esportivo de Luxo"];
+  return [
+    { descricao: "Sedan de Luxo", valor: "sedan" },
+    { descricao: "SUV de Luxo", valor: "suv" },
+    { descricao: "Esportivo de Luxo", valor: "esport" },
+  ];
 };
 
 export const modelCars = () => {
@@ -199,4 +218,112 @@ export const quantityAirbags = () => {
 
 export const quantityPortas = () => {
   return [2, 4];
+};
+
+export const occupationArea = () => {
+  return [
+    "Manutenção",
+    "Limpeza",
+    "Seguro de veículos",
+    "Atendimento ao cliente",
+    "Marketing e publicidade",
+  ];
+};
+
+export const savedCars = () => {
+  return [
+    {
+      nome: "A8",
+      placa: "AAA1A11",
+      ano: "2024",
+      valorDiaria: numberToCurrency(1250),
+    },
+    {
+      nome: "Mustang",
+      placa: "BBB2BB2",
+      ano: "1969",
+      valorDiaria: numberToCurrency(3148),
+    },
+    {
+      nome: "Flying Spur",
+      placa: "CCC3CC3",
+      ano: "2023",
+      valorDiaria: numberToCurrency(1539),
+    },
+  ];
+};
+
+export const extrasCars = () => {
+  return [
+    { servico: "Bebê conforto", valorDiaria: numberToCurrency(78) },
+    {
+      servico: "Caixa de transporte cachorro P",
+      valorDiaria: numberToCurrency(78),
+    },
+    {
+      servico: "Caixa de transporte cachorro M",
+      valorDiaria: numberToCurrency(100),
+    },
+    {
+      servico: "Caixa de transporte cachorro G",
+      valorDiaria: numberToCurrency(120),
+    },
+    {
+      servico: "Caixa de transporte cachorro GG",
+      valorDiaria: numberToCurrency(150),
+    },
+    { servico: "GPS TouchScreen", valorDiaria: numberToCurrency(125) },
+    { servico: "Seguro furto", valorDiaria: numberToCurrency(295) },
+    { servico: "Seguro batida", valorDiaria: numberToCurrency(380) },
+    { servico: "Seguro danos naturais", valorDiaria: numberToCurrency(187) },
+  ];
+};
+
+export const reservationData = () => {
+  return [
+    {
+      codigoReserva: "00001569",
+      CPF: "11122233322",
+      carro: "A8",
+      dataReserva: "23/03/2024",
+    },
+    {
+      codigoReserva: "00000124",
+      CPF: "22233311122",
+      carro: "Mustang",
+      dataReserva: "05/02/2024",
+    },
+    {
+      codigoReserva: "00062584",
+      CPF: "7778889977",
+      carro: "Flying Spur",
+      dataReserva: "15/01/2024",
+    },
+  ];
+};
+
+export const dataReservationDetails = () => {
+  return [
+    {
+      nomeCarro: "A8",
+      placa: "aaa1a11",
+      cpfCliente: "22233311122",
+      dataRetirada: "25/03/2024",
+      filial: "5 - Oeste",
+    },
+    {
+      nomeCarro: "Mustang",
+      placa: "bbb2b22",
+      cpfCliente: "44455566655",
+      dataRetirada: "18/05/2024",
+      filial: "1 - Guanabara",
+    },
+    {
+      nomeCarro: "Flying Spur",
+      placa: "ccc3c33",
+      cpfCliente: "77788899988",
+      dataRetirada: "03/09/2024",
+      filial: "3 - Marista",
+    },
+  ];
 };

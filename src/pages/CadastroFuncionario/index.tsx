@@ -18,7 +18,6 @@ import { ProfileImage } from "../../components/ProfileImage";
 import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { Title } from "../../components/Title";
-import RadioButton from "../../components/RadioButton";
 import { Button } from "../../components/Button";
 import {
   departaments,
@@ -34,8 +33,6 @@ import { DateSelect } from "../../components/SelectDate";
 import CheckBox from "../../components/CheckBox";
 
 export function CadastroFuncionario() {
-  const optionsBeneficios1 = ["VR+VT", "PIS"];
-  const optionsBeneficios2 = ["Plano de saúde", "GynPass"];
   const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   const [states, setStates] = useState<string[]>([]);
   const [city, setCity] = useState<string[]>([]);

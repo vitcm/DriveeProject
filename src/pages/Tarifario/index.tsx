@@ -5,70 +5,49 @@ import { Select } from "../../components/Select";
 import { List } from "../../components/List";
 import { Button } from "../../components/Button";
 import { Title } from "../../components/Title";
+import { extrasCars, savedCars } from "../../utils/bibli";
 
 export function Tarifario() {
-  const dataListCarros = [
-    {
-      nomeCarro: "A8",
-      placa: "aaa1a11",
-      ano: "2024",
-      valorDiaria: "R$1.250,00",
-    },
-    {
-      nomeCarro: "Mustang",
-      placa: "bbb2b22",
-      ano: "1969",
-      valorDiaria: "R$3.148,00",
-    },
-    {
-      nomeCarro: "Flying Spur",
-      placa: "ccc3c33",
-      ano: "2023",
-      valorDiaria: "R$1.539,00",
-    },
-  ];
+  const [searchCarText, setSearchCarText] = useState("");
+  const [searchExtraText, setSearchExtraText] = useState("");
 
-  const dataListExtras = [
-    {
-      servico: "Bebê conforto",
-      valorDiaria: "R$78,00",
-    },
-    {
-      servico: "Caixa para cachorro pequeno",
-      valorDiaria: "R$78,00",
-    },
-    {
-      servico: "GPS Touch Screen",
-      valorDiaria: "R$125,00",
-    },
-    {
-      servico: "Seguro furto",
-      valorDiaria: "R$295,00",
-    },
-    {
-      servico: "Seguro batida",
-      valorDiaria: "R$380,00",
-    },
-    {
-      servico: "Seguro danos naturais",
-      valorDiaria: "R$187,00",
-    },
-  ];
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
+  const handleSearchCarChange = (value: string) => {
+    setSearchCarText(value);
+  };
+
+  const handleSearchExtraChange = (value: string) => {
+    setSearchExtraText(value);
+  };
+
+  const filterData = (data: Array<{ [key: string]: any }>, query: string) => {
+    if (!query) return data;
+
+    return data.filter((item) => {
+      if (!item || typeof item !== "object") return false;
+
+      return Object.values(item).some((val) =>
+        val ? String(val).toLowerCase().includes(query.toLowerCase()) : false
+      );
+    });
+  };
+
+  // Garantir que os dados retornados sejam sempre arrays
+  const filteredSavedCars = filterData(savedCars() || [], searchCarText);
+  const filteredExtrasCars = filterData(extrasCars() || [], searchExtraText);
+
   return (
     <Container>
       <Title title="CARROS" color="#C3C3C3" $titleColor={"#374957"} />
       <Section1>
-        <SearchInput title="" type="text" />
-        <Select title="Filtro:" options={options} />
+        <SearchInput title="" type="text" onChange={handleSearchCarChange} />
       </Section1>
       <Section2>
-        <List columns={4} data={dataListCarros} minRows={7} />
+        <List columns={4} data={filteredSavedCars} minRows={7} />
       </Section2>
       <Title title="EXTRAS" color="#C3C3C3" $titleColor={"#374957"} />
       <Section3>
-        <SearchInput title="" type="text" />
-        <List columns={2} data={dataListExtras} minRows={4} />
+        <SearchInput title="" type="text" onChange={handleSearchExtraChange} />
+        <List columns={2} data={filteredExtrasCars} minRows={4} />
       </Section3>
       <Section4>
         <Button title="Cadastrar extra" $minWidth="250px" disabled />

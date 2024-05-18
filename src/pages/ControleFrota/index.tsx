@@ -5,7 +5,7 @@ import { SearchInput } from "../../components/SearchInput";
 import { Select } from "../../components/Select";
 
 export function ControleFrota() {
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
+  const filterCars = ["Chassi", "Placa"];
   return (
     <Container>
       <Button title="Ir para gestão de estoque" $minWidth="100%" disabled />
@@ -16,9 +16,9 @@ export function ControleFrota() {
         </Text>
         <Line>
           <SearchInput title="" type="text" />
-          <Select title="Filtro:" options={options} />
+          <Select title="Filtro:" options={filterCars} />
         </Line>
-        <Button title="Manutenção" $minWidth="100%" disabled />
+        <Button title="Cadastrar manutenção" $minWidth="100%" disabled />
       </Section>
       <Section>
         <Text>
@@ -27,9 +27,9 @@ export function ControleFrota() {
         </Text>
         <Line>
           <SearchInput title="" type="text" />
-          <Select title="Filtro:" options={options} />
+          <Select title="Filtro:" options={filterCars} />
         </Line>
-        <Button title="Manutenção" $minWidth="100%" disabled />
+        <Button title="Cadastrar carro" $minWidth="100%" disabled />
       </Section>
     </Container>
   );

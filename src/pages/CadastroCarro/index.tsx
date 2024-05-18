@@ -84,7 +84,14 @@ export function CadastroCarro() {
   // mudança de input
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+
+    if (name === "categoria") {
+      handleModelsCars();
+    }
   };
 
   const handleSubmit = () => {
@@ -293,12 +300,19 @@ export function CadastroCarro() {
   };
 
   const handleModelsCars = () => {
+    const selectedCategory = categoryCars().find(
+      (c) => c.descricao === formData.categoria
+    )?.valor;
+    if (!selectedCategory) {
+      setModels([]);
+      return;
+    }
+
     const modelsTotal = modelCars();
-    const filteredModels = modelsTotal.filter((m) =>
-      m.categoria.includes(formData.categoria)
+    const filteredModels = modelsTotal.filter(
+      (m) => m.categoria === selectedCategory
     );
     const models = filteredModels.map((m) => m.modelo);
-    console.log("models", models, formData.categoria);
     setModels(models);
   };
 
@@ -315,7 +329,7 @@ export function CadastroCarro() {
             <ErrorColumn>
               <Select
                 title="Categoria:"
-                options={categoryCars()}
+                options={categoryCars().map((c) => c.descricao)}
                 name="categoria"
                 value={formData.categoria}
                 onChange={handleInputChange}

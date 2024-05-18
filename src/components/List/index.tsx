@@ -12,6 +12,18 @@ export function List({ columns, data, minRows }: ListProps) {
   const rowHeight = 25;
 
   const renderHeader = () => {
+    if (data.length === 0) {
+      return (
+        <RowHeader style={{ marginTop: 0 }}>
+          {Array.from({ length: columns }).map((_, idx) => (
+            <Column key={idx} style={{ width: columnWidth }}>
+              {"Column " + (idx + 1)}
+            </Column>
+          ))}
+        </RowHeader>
+      );
+    }
+
     return (
       <RowHeader style={{ marginTop: 0 }}>
         {Object.keys(data[0])
