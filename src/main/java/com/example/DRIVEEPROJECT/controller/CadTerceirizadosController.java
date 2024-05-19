@@ -93,19 +93,19 @@ public class CadTerceirizadosController {
     @Autowired
     private ServicoTerceiroService servicoTerceiroService;
 
-    @PutMapping ("/terceiros/cadastroEndereco")
+    @PutMapping ("/terceiros/cadastroServico")
     public ResponseEntity<String> cadastrarServicoTerceiro (@RequestBody ServicoTerceiros servicoTerceiros){
         servicoTerceiroService.saveServicoTerceiros(servicoTerceiros);
         return new ResponseEntity<>("Serviço terceiro cadastrado com sucesso", HttpStatus.OK);
     }
 
-    @DeleteMapping ("/terceiros/deletarEnderecoTerceiro")
+    @DeleteMapping ("/terceiros/deletarServicoTerceiro")
     public ResponseEntity<String> deletarServicoTerceiro(){
         servicoTerceiroService.deleteServicoTerceiro(servicoTerceiroService.getLastInsertedServicoTerceiroId());
         return new ResponseEntity<>("Serviço terceiro deletado com sucesso", HttpStatus.OK);
     }
     
-    @GetMapping ("/terceiro/listarEndereco")
+    @GetMapping ("/terceiro/listarServico")
     public ResponseEntity< List <ServicoTerceiros> > listarServicoTerceiro(){
         List <ServicoTerceiros> servicoTerceiros = servicoTerceiroService.getAllServicoTerceiros();
         return new ResponseEntity<>(servicoTerceiros, HttpStatus.OK);
