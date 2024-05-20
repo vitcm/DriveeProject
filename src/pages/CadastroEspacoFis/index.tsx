@@ -27,10 +27,16 @@ import {
   weekDays,
 } from "../../utils/bibli";
 import CheckBox from "../../components/CheckBox";
+import { ModalMessage } from "../../components/ModalMessage";
+import { useNavigate } from "react-router-dom";
 
 export function CadastroEspacoFis() {
+  const navigate = useNavigate();
   const [states, setStates] = useState<string[]>([]);
   const [city, setCity] = useState<string[]>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<string>("");
+  const [errorType, setErrorType] = useState<string>("");
   const [errors, setErrors] = useState({
     nome: "",
     endereco: "",
@@ -44,6 +50,23 @@ export function CadastroEspacoFis() {
     horarioFechamento: "",
     diasSemana: "",
   });
+
+  const showModalResultError = () => {
+    setModalType("error");
+    setShowModal(true);
+  };
+
+  const showModalResultSuccess = () => {
+    setModalType("success");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (modalType === "success") {
+      navigate("/perfil");
+    }
+  };
 
   const cadastrarFilial = async () => {
     const filial = {
@@ -80,8 +103,6 @@ export function CadastroEspacoFis() {
       sabado: !formData.diasSemana.includes("sabado"),
       domingo: !formData.diasSemana.includes("domingo"),
     };
-
-    console.log("aqui", filial, alvara, horarioFuncionamento);
 
     //Cadastrar Filial
     try {
@@ -125,29 +146,42 @@ export function CadastroEspacoFis() {
 
               if (response.ok) {
                 console.log("Dia e horario cadastrado com sucesso");
+                showModalResultSuccess();
               } else {
                 console.error("Erro ao cadastrar dia e horario");
+                setErrorType("Erro ao cadastrar dia e horario");
+                showModalResultError();
                 deletarAlvara();
                 deletarFilial();
               }
             } catch (error) {
               console.error("Erro ao enviar requisição:", error);
+              setErrorType(`Erro ao enviar requisição: ${error}`);
+              showModalResultError();
               deletarAlvara();
               deletarFilial();
             }
           } else {
             console.error("Erro ao cadastrar alvara");
+            setErrorType(`Erro ao cadastrar alvara`);
+            showModalResultError();
             deletarFilial();
           }
         } catch (error) {
           console.error("Erro ao enviar requisição:", error);
+          setErrorType(`Erro ao enviar requisição: ${error}`);
+          showModalResultError();
           deletarFilial();
         }
       } else {
         console.error("Erro ao cadastrar filial");
+        setErrorType(`Erro ao cadastrar filial`);
+        showModalResultError();
       }
     } catch (error) {
       console.error("Erro ao enviar requisição:", error);
+      setErrorType(`Erro ao enviar requisição: ${error}`);
+      showModalResultError();
     }
   };
 
@@ -578,7 +612,22 @@ export function CadastroEspacoFis() {
           onClick={handleSubmit}
         />
       </Section5>
+      {showModal && (
+        <ModalMessage
+          type={modalType}
+          title={
+            modalType === "error"
+              ? "Ops! Tivemos um erro no cadastro."
+              : "Oba, o cadastro deu certo!"
+          }
+          message={
+            modalType === "error"
+              ? `Tivemos um erro no cadastro: ${errorType}`
+              : "Parabéns, seu cadastro deu certo!"
+          }
+          onClose={handleCloseModal}
+        />
+      )}
     </Container>
-    // </form>
   );
 }

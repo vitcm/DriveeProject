@@ -33,7 +33,6 @@ import {
 import CheckBox from "../../components/CheckBox";
 
 export function CadastroCarro() {
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
   const [models, setModels] = useState<string[]>([""]);
   const [errors, setErrors] = useState({
     categoria: "",
@@ -449,9 +448,9 @@ export function CadastroCarro() {
             {errors.combustivel && <ErrorTag>{errors.combustivel}</ErrorTag>}
           </ErrorColumn>
           <ErrorColumn>
-            <Select
+            <Input
               title="Ano:"
-              options={options}
+              type="number"
               name="ano"
               value={formData.ano}
               onChange={handleInputChange}
