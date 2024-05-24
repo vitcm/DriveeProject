@@ -16,34 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.DRIVEEPROJECT.model.Carro;
-import com.example.DRIVEEPROJECT.model.Categoria;
-import com.example.DRIVEEPROJECT.model.Modelo;
 import com.example.DRIVEEPROJECT.service.CarroService;
-import com.example.DRIVEEPROJECT.service.CategoriaService;
-import com.example.DRIVEEPROJECT.service.ModeloService;
 
 @Controller
 @CrossOrigin (origins = "http://localhost:3000")
 public class CarroController {
-
-    @Autowired
-    private CategoriaService categoriaService;
-
-    @GetMapping ("/carro/categoria")
-    public ResponseEntity<List <Categoria> > listarCategorias(){
-        List <Categoria> categorias = categoriaService.getAllCategorias();
-        return new ResponseEntity<>(categorias, HttpStatus.OK);
-    }
-
-    @Autowired
-    private ModeloService modeloService;
-
-    @GetMapping ("/carro/modelo")
-    public ResponseEntity < List <Modelo>> listarModelos(){
-        List <Modelo> modelos = modeloService.getAllModelos();
-        return new ResponseEntity<>(modelos, HttpStatus.OK);
-    }
-    
     @Autowired
     private CarroService carroService;
 

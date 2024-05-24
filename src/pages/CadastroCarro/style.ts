@@ -46,6 +46,8 @@ export const Section4 = styled.div`
 
 export const Section5 = styled.div`
   width: 50%;
+  display: flex;
+  gap: 20px;
 `;
 
 export const Section6 = styled.div`

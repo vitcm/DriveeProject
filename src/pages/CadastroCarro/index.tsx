@@ -25,15 +25,23 @@ import {
   combustCars,
   direcCars,
   modelCars,
+  possibleCarStatus,
   quantityAirbags,
   quantityPassenger,
   quantityPortas,
   transmissionCars,
 } from "../../utils/bibli";
 import CheckBox from "../../components/CheckBox";
+import { useNavigate } from "react-router-dom";
+import { DateSelect } from "../../components/SelectDate";
+import { ModalMessage } from "../../components/ModalMessage";
 
 export function CadastroCarro() {
+  const navigate = useNavigate();
   const [models, setModels] = useState<string[]>([""]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<string>("");
+  const [errorType, setErrorType] = useState<string>("");
   const [errors, setErrors] = useState({
     categoria: "",
     modelo: "",
@@ -55,7 +63,75 @@ export function CadastroCarro() {
     renavam: "",
     ipva: "",
     valorDiaria: "",
+    status: "",
   });
+
+  const showModalResultSuccess = () => {
+    setModalType("success");
+    setShowModal(true);
+  };
+
+  const showModalResultError = () => {
+    setModalType("error");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (modalType === "success") {
+      navigate("/lista-carros");
+    }
+  };
+
+  const cadastrarCarro = async () => {
+    const filial = {
+      categoria: formData.categoria,
+      modelo: formData.modelo,
+      placa: formData.placa,
+      chassi: formData.chassi,
+      cor: formData.cor,
+      direcao: formData.direcao,
+      portaMala: parseFloat(formData.portaMala),
+      cilindradas: parseFloat(formData.cilindradas),
+      adaptado: formData.adaptado,
+      transmissao: formData.transmissao,
+      combustivel: formData.combustivel,
+      ano: parseFloat(formData.ano),
+      qtdePassageiros: parseFloat(formData.qtdePassageiros),
+      qtdeAirbag: formData.qtdeAirbag,
+      qtdePortas: parseFloat(formData.qtdePortas),
+      renovacao: formData.renovacao,
+      taxas: parseFloat(formData.taxas),
+      renavam: parseFloat(formData.renavam),
+      ipva: parseFloat(formData.ipva),
+      valorDiaria: parseFloat(formData.valorDiaria),
+      status: formData.status,
+    };
+
+    //Cadastrar carro
+    try {
+      const response = await fetch("http://localhost:8080/carro/cadastro", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(filial),
+      });
+
+      if (response.ok) {
+        console.log("Carro cadastrado com sucesso");
+        showModalResultSuccess();
+      } else {
+        console.error("Erro ao cadastrar filial");
+        setErrorType(`Erro ao cadastrar filial`);
+        showModalResultError();
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+      setErrorType(`Erro ao enviar requisição: ${error}`);
+      showModalResultError();
+    }
+  };
 
   const [formData, setFormData] = useState({
     categoria: "",
@@ -78,6 +154,7 @@ export function CadastroCarro() {
     renavam: "",
     ipva: "",
     valorDiaria: "",
+    status: "",
   });
 
   // mudança de input
@@ -116,6 +193,7 @@ export function CadastroCarro() {
       renavam: "",
       ipva: "",
       valorDiaria: "",
+      status: "",
     });
 
     // Verifica se os campos obrigatórios estão preenchidos
@@ -279,11 +357,19 @@ export function CadastroCarro() {
       hasError = true;
     }
 
+    if (!formData.status) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        status: "Status é obrigatório!",
+      }));
+      hasError = true;
+    }
+
     if (hasError) {
       return;
     }
 
-    console.log("Dados do formulário:", formData);
+    cadastrarCarro();
   };
 
   const handleAddQuantityPassengers = (qtdePassageiros: string) => {
@@ -296,6 +382,15 @@ export function CadastroCarro() {
 
   const handleAddQuantityDoors = (qtdePortas: string) => {
     setFormData({ ...formData, qtdePortas: qtdePortas });
+  };
+
+  // mudança de data
+  const handleDateInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    name: string
+  ) => {
+    const { value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleModelsCars = () => {
@@ -496,12 +591,11 @@ export function CadastroCarro() {
       </Section3>
       <Section4>
         <ErrorColumn>
-          <Input
+          <DateSelect
             title="Renovação:"
-            type="number"
             name="renovacao"
             value={formData.renovacao}
-            onChange={handleInputChange}
+            onChange={(e) => handleDateInputChange(e, "renovacao")}
           />
           {errors.renovacao && <ErrorTag>{errors.renovacao}</ErrorTag>}
         </ErrorColumn>
@@ -547,6 +641,16 @@ export function CadastroCarro() {
           />
           {errors.valorDiaria && <ErrorTag>{errors.valorDiaria}</ErrorTag>}
         </ErrorColumn>
+        <ErrorColumn>
+          <Select
+            title="Status:"
+            options={possibleCarStatus()}
+            name="status"
+            value={formData.status}
+            onChange={handleInputChange}
+          />
+          {errors.status && <ErrorTag>{errors.status}</ErrorTag>}
+        </ErrorColumn>
       </Section5>
       <Section6>
         <Button
@@ -556,6 +660,22 @@ export function CadastroCarro() {
           onClick={handleSubmit}
         />
       </Section6>
+      {showModal && (
+        <ModalMessage
+          type={modalType}
+          title={
+            modalType === "error"
+              ? "Ops! Tivemos um erro no cadastro."
+              : "Oba, o cadastro deu certo!"
+          }
+          message={
+            modalType === "error"
+              ? `Tivemos um erro no cadastro: ${errorType}`
+              : "Parabéns, seu cadastro deu certo!"
+          }
+          onClose={handleCloseModal}
+        />
+      )}
     </Container>
   );
 }

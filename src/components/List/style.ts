@@ -30,7 +30,7 @@ export const ContainerList = styled.div`
 
 export const RowHeader = styled.div`
   background-color: ${theme.colors.laranja_3};
-  color: ${theme.colors.gray_text};
+  color: ${theme.colors.gray_ee};
 
   display: flex;
   justify-content: space-between;

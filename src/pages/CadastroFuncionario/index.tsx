@@ -31,16 +31,23 @@ import {
 } from "../../utils/bibli";
 import { DateSelect } from "../../components/SelectDate";
 import CheckBox from "../../components/CheckBox";
+import { useNavigate } from "react-router-dom";
+import { ModalMessage } from "../../components/ModalMessage";
+import { Filial } from "../../interfaces";
 
 export function CadastroFuncionario() {
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
+  const navigate = useNavigate();
   const [states, setStates] = useState<string[]>([]);
   const [city, setCity] = useState<string[]>([]);
   const [country, setCountry] = useState<string[]>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<string>("");
+  const [errorType, setErrorType] = useState<string>("");
+  const [filiaisListados, setFiliaisListados] = useState<Filial[]>([]);
+  const [showFiliaisListados, setShowFiliaisListados] = useState<string[]>([]);
 
   const [errors, setErrors] = useState({
     nome: "",
-    doc: "",
     nDoc: "",
     cnh: "",
     nacionalidade: "",
@@ -66,9 +73,169 @@ export function CadastroFuncionario() {
     situacao: "",
   });
 
+  const showModalResultError = () => {
+    setModalType("error");
+    setShowModal(true);
+  };
+
+  const showModalResultSuccess = () => {
+    setModalType("success");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (modalType === "success") {
+      navigate("/lista-funcionarios");
+    }
+  };
+
+  const cadastrarFuncionario = async () => {
+    const funcionario = {
+      nome: formData.nome,
+      cpf: formData.nDoc,
+      cnh: formData.cnh,
+      nacionalidade: formData.nacionalidade,
+      celular: formData.tel,
+      email: formData.email,
+      senha: "123456",
+      dataNascimento: formData.aniversario,
+      endereco: formData.endereco,
+      complemento: formData.complemento,
+      cep: formData.cep,
+      uf: formData.uf,
+      cidade: formData.cidade,
+      enderecoEmergencia: formData.enderecoEmergencia,
+      paisResidencia: formData.paisResidenciaEmergencia,
+      telefoneEmergencia: formData.telefoneEmergencia,
+      localDeTrabalho: formData.localAtuacao,
+      departamento: formData.departamento,
+      carteiraDeTrabalho: formData.carteira,
+      pis: formData.pis,
+      tituloEleitor: formData.tituloEleitor,
+      situacao: formData.situacao,
+    };
+
+    const contratoFuncionario = {
+      salario: parseFloat(formData.salario),
+      cargaHoraria: parseFloat(formData.cargaHoraria),
+      cargo: formData.cargo,
+      horasSemanais: parseFloat(formData.horasSemanais),
+      inicioContrato: formData.inicio,
+      fimDoContrato: formData.fim,
+      beneficios: formData.beneficios,
+    };
+
+    //Cadastrar Funcionario
+    try {
+      const response = await fetch(
+        "http://localhost:8080/funcionario/cadastro",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(funcionario),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Funcionário cadastrado com sucesso");
+        //Cadastrar Contrato
+        try {
+          const response = await fetch(
+            "http://localhost:8080/funcionario/cadastroContrato",
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(contratoFuncionario),
+            }
+          );
+
+          if (response.ok) {
+            console.log("Contrato cadastrado com sucesso!");
+            showModalResultSuccess();
+          } else {
+            console.error("Erro ao cadastrar contrato");
+            setErrorType("Erro ao cadastrar contrato");
+            showModalResultError();
+            deletarFuncionario();
+          }
+        } catch (error) {
+          console.error("Erro ao enviar requisição:", error);
+          setErrorType(`Erro ao enviar requisição: ${error}`);
+          showModalResultError();
+          deletarFuncionario();
+        }
+      } else {
+        console.error("Erro ao cadastrar filial");
+        setErrorType("Erro ao cadastrar filial");
+        showModalResultError();
+        deletarFuncionario();
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+      setErrorType(`Erro ao enviar requisição: ${error}`);
+      showModalResultError();
+    }
+  };
+
+  const deletarFuncionario = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/funcionario/deletarFuncionario",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Funcionário deletado com sucesso");
+      } else {
+        console.error("Erro ao deletar funcionário");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
+
+  const listarLocaisDeAtuacao = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/filial/listar", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFiliaisListados(data);
+        console.log("data", data);
+      } else {
+        console.error("Erro ao listar filiais");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
+
+  useEffect(() => {
+    const filteredFiliais = filiaisListados.map((filial) => filial.nome);
+    setShowFiliaisListados(filteredFiliais);
+  }, [filiaisListados]);
+
+  useEffect(() => {
+    listarLocaisDeAtuacao();
+  }, []);
+
   const [formData, setFormData] = useState({
     nome: "",
-    doc: "",
     nDoc: "",
     cnh: "",
     nacionalidade: "",
@@ -94,7 +261,6 @@ export function CadastroFuncionario() {
     carteira: "",
     pis: "",
     tituloEleitor: "",
-    certidaoCasamento: "",
     beneficios: "",
     situacao: "",
   });
@@ -155,7 +321,6 @@ export function CadastroFuncionario() {
     let hasError = false;
     setErrors({
       nome: "",
-      doc: "",
       nDoc: "",
       cnh: "",
       nacionalidade: "",
@@ -186,14 +351,6 @@ export function CadastroFuncionario() {
       setErrors((prevErrors) => ({
         ...prevErrors,
         nome: "Nome é obrigatório!",
-      }));
-      hasError = true;
-    }
-
-    if (!formData.doc) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        doc: "Escolha qual o tipo de documento.",
       }));
       hasError = true;
     }
@@ -386,7 +543,7 @@ export function CadastroFuncionario() {
       return;
     }
 
-    console.log("Dados do formulário:", formData);
+    cadastrarFuncionario();
   };
 
   useEffect(() => {
@@ -416,16 +573,6 @@ export function CadastroFuncionario() {
             {errors.nome && <ErrorTag>{errors.nome}</ErrorTag>}
           </ErrorColumn>
           <Line>
-            <ErrorColumn>
-              <Select
-                title="Doc:"
-                options={documentsPerson()}
-                name="doc"
-                value={formData.doc}
-                onChange={handleInputChange}
-              />
-              {errors.doc && <ErrorTag>{errors.doc}</ErrorTag>}
-            </ErrorColumn>
             <ErrorColumn>
               <Input
                 title="Nº doc:"
@@ -583,7 +730,7 @@ export function CadastroFuncionario() {
             <ErrorColumn>
               <Select
                 title="Local de atuação:"
-                options={options}
+                options={showFiliaisListados}
                 name="localAtuacao"
                 value={formData.localAtuacao}
                 onChange={handleInputChange}
@@ -645,13 +792,6 @@ export function CadastroFuncionario() {
                 <ErrorTag>{errors.tituloEleitor}</ErrorTag>
               )}
             </ErrorColumn>
-            <Input
-              title="Certidão casamento:"
-              type="number"
-              name="certidaoCasamento"
-              value={formData.certidaoCasamento}
-              onChange={handleInputChange}
-            />
           </Line>
         </RightSide>
       </Section4>
@@ -754,6 +894,22 @@ export function CadastroFuncionario() {
           </Line>
         </RightSide>
       </Section5>
+      {showModal && (
+        <ModalMessage
+          type={modalType}
+          title={
+            modalType === "error"
+              ? "Ops! Tivemos um erro no cadastro."
+              : "Oba, o cadastro deu certo!"
+          }
+          message={
+            modalType === "error"
+              ? `Tivemos um erro no cadastro: ${errorType}`
+              : "Parabéns, seu cadastro deu certo!"
+          }
+          onClose={handleCloseModal}
+        />
+      )}
     </Container>
   );
 }

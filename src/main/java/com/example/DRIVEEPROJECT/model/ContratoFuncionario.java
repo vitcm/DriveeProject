@@ -3,8 +3,11 @@ package com.example.DRIVEEPROJECT.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -17,9 +20,10 @@ public class ContratoFuncionario {
     private BigDecimal salario;
     private int cargaHoraria;
     private String cargo;
-    private int diasDaSemana;
+    private int horasSemanais;
     private Date inicioContrato;
     private Date fimDoContrato;
+    private String beneficios;
     
 
     public long getId() {
@@ -62,12 +66,12 @@ public class ContratoFuncionario {
         this.cargo = cargo;
     }
 
-    public int getDiasDaSemana() {
-        return diasDaSemana;
+    public int getHorasDaSemana() {
+        return horasSemanais;
     }
 
-    public void setDiasDaSemana(int diasDaSemana) {
-        this.diasDaSemana = diasDaSemana;
+    public void setHorasDaSemana(int horasSemanais) {
+        this.horasSemanais = horasSemanais;
     }
 
     public Date getInicioContrato() {
@@ -84,6 +88,14 @@ public class ContratoFuncionario {
 
     public void setFimDoContrato(Date fimDoContrato) {
         this.fimDoContrato = fimDoContrato;
+    }
+
+    public String getBeneficios() {
+        return beneficios;
+    }
+
+    public void setBeneficios(String beneficios) {
+        this.beneficios = beneficios;
     }
 
     

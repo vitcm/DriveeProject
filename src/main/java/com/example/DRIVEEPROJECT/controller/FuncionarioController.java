@@ -74,6 +74,13 @@ public class FuncionarioController {
         return new ResponseEntity<>("Status do funcionario cadastrado com sucesso", HttpStatus.OK);
     }
 
+    @GetMapping ("/funcionario/listar")
+    public ResponseEntity< List <Funcionario> > listarFuncionarios(){
+        List <Funcionario> funcionarios = funcionarioService.getAllFuncionario();
+        return new ResponseEntity<>(funcionarios, HttpStatus.OK);
+    }
+
+
     @DeleteMapping ("/funcionario/deletarFuncionario")
     public ResponseEntity<String> deletarFuncionario() {
         funcionarioService.deleteFuncionario(funcionarioService.getLastInsertedFuncionarioId());

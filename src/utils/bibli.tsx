@@ -211,13 +211,24 @@ export const quantityAirbags = () => {
     "Airbags Laterais",
     "Airbags de Cortina",
     "Airbags de Joelho",
-    "Airbags traseiros",
+    "Airbags Traseiros",
     "Airbags de Cinto de Segurança",
   ];
 };
 
 export const quantityPortas = () => {
   return [2, 4];
+};
+
+export const possibleCarStatus = () => {
+  return [
+    "Livre",
+    "Alugado",
+    "Em manutenção",
+    "Vendido",
+    "Em processo de compra",
+    "Em processo de venda",
+  ];
 };
 
 export const occupationArea = () => {

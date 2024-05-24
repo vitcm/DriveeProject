@@ -3,7 +3,7 @@ import { Container, Title, ArrowDown, OptionsContainer, Option } from "./style";
 
 interface SelectProps {
   title: string;
-  options: string[];
+  options: any[];
   name?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

@@ -13,8 +13,11 @@ import {
 import { Button } from "../../components/Button";
 import { ProfileImage } from "../../components/ProfileImage";
 import { Title } from "../../components/Title";
+import { useLocation } from "react-router-dom";
 
 export function Perfil() {
+  const location = useLocation();
+  const cpf = location.state?.cpf;
   return (
     <Container>
       <Section1>

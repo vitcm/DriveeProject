@@ -30,7 +30,7 @@ export function List({ columns, data, minRows }: ListProps) {
           .slice(0, columns)
           .map((key) => (
             <Column key={key} style={{ width: columnWidth }}>
-              {key}
+              {key.toUpperCase()}
             </Column>
           ))}
       </RowHeader>
@@ -64,7 +64,7 @@ export function List({ columns, data, minRows }: ListProps) {
               .slice(0, columns)
               .map((value, idx) => (
                 <Column key={idx} style={{ width: columnWidth }}>
-                  {value}
+                  {String(value)}
                 </Column>
               ))}
           </Row>

@@ -1,17 +1,26 @@
 package com.example.DRIVEEPROJECT.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.example.DRIVEEPROJECT.model.Alvara;
 import com.example.DRIVEEPROJECT.model.DiaHorarioFilial;
 import com.example.DRIVEEPROJECT.model.Filial;
 import com.example.DRIVEEPROJECT.service.AlvaraService;
 import com.example.DRIVEEPROJECT.service.DiaHorarioFilialService;
 import com.example.DRIVEEPROJECT.service.FilialService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
@@ -56,6 +65,12 @@ public class FilialController {
     public ResponseEntity<String> deletarAlvara() {
         alvaraService.deleteFilial(alvaraService.getLastInsertedAlvaraId());
         return new ResponseEntity<>("Alvara deletado com sucesso", HttpStatus.OK);
+    }
+
+    @GetMapping ("/filial/listar")
+    public ResponseEntity< List <Filial> > listarCarros(){
+        List <Filial> filiais = filialService.getAllFiliais();
+        return new ResponseEntity<>(filiais, HttpStatus.OK);
     }
 
 

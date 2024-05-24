@@ -3,7 +3,7 @@ import { Container, Title, InputInsert } from "./style";
 
 interface InputProps {
   title: string;
-  type: "text" | "number";
+  type: "text" | "number" | "password";
   name?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

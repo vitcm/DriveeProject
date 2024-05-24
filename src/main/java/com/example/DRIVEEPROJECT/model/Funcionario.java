@@ -1,7 +1,12 @@
 package com.example.DRIVEEPROJECT.model;
 
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -10,30 +15,28 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    private String fotoPerfil;
     private String nome;
-    private long cpf;
-    private long cnh;
+    private String cpf;
+    private String cnh;
     private String nacionalidade;
-    private long celular;
+    private String celular;
     private String email;
     private String senha;
-    private String dataNascimento;
+    private Date dataNascimento;
     private String endereco;
     private String complemento;
-    private int cep;
+    private String cep;
     private String uf;
     private String cidade;
     private String enderecoEmergencia;
     private String paisResidencia;
-    private long telefoneEmergencia;
-    private long localDeTrabalho;
-    private long departamento;
-    private long carteiraDeTrabalho;
-    private long pis;
-    private long tituloEleitor;
-    private long certidaoCasamento;
-    private long status;
+    private String telefoneEmergencia;
+    private String localDeTrabalho;
+    private String departamento;
+    private String carteiraDeTrabalho;
+    private String pis;
+    private String tituloEleitor;
+    private String status;
     
     public long getId() {
         return id;
@@ -41,14 +44,6 @@ public class Funcionario {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getFotoPerfil() {
-        return fotoPerfil;
-    }
-
-    public void setFotoPerfil(String fotoPerfil) {
-        this.fotoPerfil = fotoPerfil;
     }
 
     public String getNome() {
@@ -59,19 +54,19 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public long getCnh() {
+    public String getCnh() {
         return cnh;
     }
 
-    public void setCnh(long cnh) {
+    public void setCnh(String cnh) {
         this.cnh = cnh;
     }
 
@@ -83,11 +78,11 @@ public class Funcionario {
         this.nacionalidade = nacionalidade;
     }
 
-    public long getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(long celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 
@@ -107,11 +102,11 @@ public class Funcionario {
         this.senha = senha;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -131,11 +126,11 @@ public class Funcionario {
         this.complemento = complemento;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -171,67 +166,59 @@ public class Funcionario {
         this.paisResidencia = paisResidencia;
     }
 
-    public long getTelefoneEmergencia() {
+    public String getTelefoneEmergencia() {
         return telefoneEmergencia;
     }
 
-    public void setTelefoneEmergencia(long telefoneEmergencia) {
+    public void setTelefoneEmergencia(String telefoneEmergencia) {
         this.telefoneEmergencia = telefoneEmergencia;
     }
 
-    public long getLocalDeTrabalho() {
+    public String getLocalDeTrabalho() {
         return localDeTrabalho;
     }
 
-    public void setLocalDeTrabalho(long localDeTrabalho) {
+    public void setLocalDeTrabalho(String localDeTrabalho) {
         this.localDeTrabalho = localDeTrabalho;
     }
 
-    public long getDepartamento() {
+    public String getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(long departamento) {
+    public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
 
-    public long getCarteiraDeTrabalho() {
+    public String getCarteiraDeTrabalho() {
         return carteiraDeTrabalho;
     }
 
-    public void setCarteiraDeTrabalho(long carteiraDeTrabalho) {
+    public void setCarteiraDeTrabalho(String carteiraDeTrabalho) {
         this.carteiraDeTrabalho = carteiraDeTrabalho;
     }
 
-    public long getPis() {
+    public String getPis() {
         return pis;
     }
 
-    public void setPis(long pis) {
+    public void setPis(String pis) {
         this.pis = pis;
     }
 
-    public long getTituloEleitor() {
+    public String getTituloEleitor() {
         return tituloEleitor;
     }
 
-    public void setTituloEleitor(long tituloEleitor) {
+    public void setTituloEleitor(String tituloEleitor) {
         this.tituloEleitor = tituloEleitor;
     }
 
-    public long getCertidaoCasamento() {
-        return certidaoCasamento;
-    }
-
-    public void setCertidaoCasamento(long certidaoCasamento) {
-        this.certidaoCasamento = certidaoCasamento;
-    }
-
-    public long getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(long status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

@@ -1,7 +1,12 @@
 package com.example.DRIVEEPROJECT.model;
 
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -10,25 +15,28 @@ public class Carro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long categoria;
-    private long modelo;
+    private String categoria;
+    private String modelo;
     private String placa;
-    private long chassi;
-    private long cor;
+    private String chassi;
+    private String cor;
     private int quantidadePortas;
-    private long direcao;
-    private int quantidadeAirbag;
+    private String adaptado;
+    private String direcao;
+    private String quantidadeAirbag;
     private int tamanhoPortaMala;
     private int cilindradas;
-    private long transmissao;
+    private String transmissao;
     private int quantidadePassageiros;
     private int ano;
-    private long tipoCombustivel;
+    private String tipoCombustivel;
     private long ipva;
     private long renavam;
-    private long status;
+    private String status;
     private double valorDiaria;
-    
+    private double taxaTransmissao;
+    private Date periodoRenovacao;
+
     public long getId() {
         return id;
     }
@@ -37,19 +45,19 @@ public class Carro {
         this.id = id;
     }
 
-    public long getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(long categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 
-    public long getModelo() {
+    public String getModelo() {
         return modelo;
     }
 
-    public void setModelo(long modelo) {
+    public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
@@ -61,19 +69,19 @@ public class Carro {
         this.placa = placa;
     }
 
-    public long getChassi() {
+    public String getChassi() {
         return chassi;
     }
 
-    public void setChassi(long chassi) {
+    public void setChassi(String chassi) {
         this.chassi = chassi;
     }
 
-    public long getCor() {
+    public String getCor() {
         return cor;
     }
 
-    public void setCor(long cor) {
+    public void setCor(String cor) {
         this.cor = cor;
     }
 
@@ -85,19 +93,27 @@ public class Carro {
         this.quantidadePortas = quantidadePortas;
     }
 
-    public long getDirecao() {
+    public String getAdaptado() {
+        return adaptado;
+    }
+
+    public void setAdaptado(String adaptado) {
+        this.adaptado = adaptado;
+    }
+
+    public String getDirecao() {
         return direcao;
     }
 
-    public void setDirecao(long direcao) {
+    public void setDirecao(String direcao) {
         this.direcao = direcao;
     }
 
-    public int getQuantidadeAirbag() {
+    public String getQuantidadeAirbag() {
         return quantidadeAirbag;
     }
 
-    public void setQuantidadeAirbag(int quantidadeAirbag) {
+    public void setQuantidadeAirbag(String quantidadeAirbag) {
         this.quantidadeAirbag = quantidadeAirbag;
     }
 
@@ -117,11 +133,11 @@ public class Carro {
         this.cilindradas = cilindradas;
     }
 
-    public long getTransmissao() {
+    public String getTransmissao() {
         return transmissao;
     }
 
-    public void setTransmissao(long transmissao) {
+    public void setTransmissao(String transmissao) {
         this.transmissao = transmissao;
     }
 
@@ -141,15 +157,15 @@ public class Carro {
         this.ano = ano;
     }
 
-    public long getTipoCombustivel() {
+    public String getTipoCombustivel() {
         return tipoCombustivel;
     }
 
-    public void setTipoCombustivel(long tipoCombustivel) {
+    public void setTipoCombustivel(String tipoCombustivel) {
         this.tipoCombustivel = tipoCombustivel;
     }
 
-    public long isIpva() {
+    public long getIpva() {
         return ipva;
     }
 
@@ -165,11 +181,11 @@ public class Carro {
         this.renavam = renavam;
     }
 
-    public long getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(long status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -181,6 +197,23 @@ public class Carro {
         this.valorDiaria = valorDiaria;
     }
 
+    public Date getPeriodoRenovacao() {
+        return periodoRenovacao;
+    }
+
+    public void setPeriodoRenovacao(Date periodoRenovacao) {
+        this.periodoRenovacao = periodoRenovacao;
+    }
+
+    public double getTaxaTransmissao() {
+        return taxaTransmissao;
+    }
+
+    public void setTaxaTransmissao(double taxaTransmissao) {
+        this.taxaTransmissao = taxaTransmissao;
+    }
+    
+    
 }
 
 
