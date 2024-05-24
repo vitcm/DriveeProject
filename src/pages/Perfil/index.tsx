@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Section1,
@@ -14,10 +14,43 @@ import { Button } from "../../components/Button";
 import { ProfileImage } from "../../components/ProfileImage";
 import { Title } from "../../components/Title";
 import { useLocation } from "react-router-dom";
+import { Funcionario } from "../../interfaces";
 
 export function Perfil() {
   const location = useLocation();
+  const [funcionario, setFuncionario] = useState<Funcionario>();
   const cpf = location.state?.cpf;
+
+  const getFuncionarioByCpf = async (cpf: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/funcionario/cpf/${cpf}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setFuncionario(data);
+        console.log("Funcionário encontrado:", data);
+      } else if (response.status === 404) {
+        console.error("Funcionário não encontrado");
+      } else {
+        console.error("Erro ao obter funcionário");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
+
+  useEffect(() => {
+    getFuncionarioByCpf(cpf);
+  }, []);
+
   return (
     <Container>
       <Section1>

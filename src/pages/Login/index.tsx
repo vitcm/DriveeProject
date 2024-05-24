@@ -32,7 +32,7 @@ export function Login() {
     const funcionario = showFuncionarios.find((func) => func.cpf === cpf);
 
     if (!funcionario) {
-      setErrorType("Email não cadastrado.");
+      setErrorType("CPF não cadastrado.");
       showModalResultError();
       return;
     }
@@ -72,7 +72,6 @@ export function Login() {
       cpf: func.cpf,
       senha: func.senha,
     }));
-    console.log("filtered funcionarios", filteredFuncionarios);
     setShowFuncionarios(filteredFuncionarios);
   }, [funcionariosListados]);
 
