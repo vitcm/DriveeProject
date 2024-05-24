@@ -1,6 +1,7 @@
 package com.example.DRIVEEPROJECT.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +82,12 @@ public class FuncionarioController {
         return new ResponseEntity<>(funcionarios, HttpStatus.OK);
     }
 
+    @GetMapping("/funcionario/cpf")
+    public ResponseEntity<Funcionario> getFuncionarioByCpf(@PathVariable String cpf) {
+        Optional<Funcionario> funcionario = funcionarioService.getFuncionarioByCpf(cpf);
+        return funcionario.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                          .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     @DeleteMapping ("/funcionario/deletarFuncionario")
     public ResponseEntity<String> deletarFuncionario() {

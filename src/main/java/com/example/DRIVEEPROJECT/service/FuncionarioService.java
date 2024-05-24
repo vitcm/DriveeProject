@@ -24,6 +24,9 @@ public class FuncionarioService {
         return funcionarioRepository.findById(id);
     }
 
+    public Optional<Funcionario> getFuncionarioByCpf(String cpf) {
+        return funcionarioRepository.findByCpf(cpf);
+    }
     public Funcionario saveFuncionario(Funcionario funcionario) {
         return funcionarioRepository.save(funcionario);
     }
