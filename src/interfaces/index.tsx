@@ -59,3 +59,14 @@ export interface Filial {
   fimContrato: Date;
   contrato: string;
 }
+
+export interface Terceiro {
+  nomeEmpresa: string;
+  cnpj: string;
+  inicioContrato: string;
+  fimContrato: string;
+  funcionario: string;
+  contrato: string;
+  areaAtuacao: string;
+  ativo: string;
+}

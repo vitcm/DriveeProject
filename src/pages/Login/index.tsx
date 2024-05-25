@@ -80,7 +80,8 @@ export function Login() {
   }, []);
 
   const sucessLogin = () => {
-    navigate("/perfil", { state: { cpf: cpf } });
+    localStorage.setItem("cpf", cpf);
+    navigate("/perfil");
   };
 
   const showModalResultError = () => {

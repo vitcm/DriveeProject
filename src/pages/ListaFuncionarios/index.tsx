@@ -6,6 +6,7 @@ import { List } from "../../components/List";
 import { Button } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { Funcionario } from "../../interfaces";
+import { formatCPF } from "../../utils/bibli";
 
 interface FuncionarioList {
   cpf: string;
@@ -22,6 +23,8 @@ export function ListaFuncionarios() {
   const [showFuncionarios, setShowFuncionarios] = useState<FuncionarioList[]>(
     []
   );
+  const [searchFuncText, setSearchFuncText] = useState("");
+
   const handleCadastro = () => {
     navigate("/cadastro-funcionario");
   };
@@ -49,7 +52,7 @@ export function ListaFuncionarios() {
 
   useEffect(() => {
     const filteredFuncionarios = funcionariosListados.map((func) => ({
-      cpf: func.cpf,
+      cpf: formatCPF(func.cpf),
       nome: func.nome,
       filial: func.localDeTrabalho,
       departamento: func.departamento,
@@ -62,15 +65,31 @@ export function ListaFuncionarios() {
     listarFuncionarios();
   }, []);
 
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
+  const handleSearchFuncChange = (value: string) => {
+    setSearchFuncText(value);
+  };
+
+  const filterData = (data: Array<{ [key: string]: any }>, query: string) => {
+    if (!query) return data;
+
+    return data.filter((item) => {
+      if (!item || typeof item !== "object") return false;
+
+      return Object.values(item).some((val) =>
+        val ? String(val).toLowerCase().includes(query.toLowerCase()) : false
+      );
+    });
+  };
+
+  const filteredSavedCars = filterData(showFuncionarios || [], searchFuncText);
+
   return (
     <Container>
       <Section1>
-        <SearchInput title="" type="text" />
-        <Select title="Filtro:" options={options} />
+        <SearchInput title="" type="text" onChange={handleSearchFuncChange} />
       </Section1>
       <Section2>
-        <List columns={4} data={showFuncionarios} minRows={14} />
+        <List columns={4} data={filteredSavedCars} minRows={14} />
       </Section2>
       <Section3>
         <Button

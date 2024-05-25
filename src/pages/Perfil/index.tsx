@@ -15,11 +15,23 @@ import { ProfileImage } from "../../components/ProfileImage";
 import { Title } from "../../components/Title";
 import { useLocation } from "react-router-dom";
 import { Funcionario } from "../../interfaces";
+import {
+  formatCEP,
+  formatCPF,
+  formatDate,
+  formatPhoneNumber,
+} from "../../utils/bibli";
 
 export function Perfil() {
   const location = useLocation();
   const [funcionario, setFuncionario] = useState<Funcionario>();
   const cpf = location.state?.cpf;
+  useEffect(() => {
+    const storedCpf = localStorage.getItem("cpf");
+    if (cpf || storedCpf) {
+      getFuncionarioByCpf(cpf || storedCpf);
+    }
+  }, []);
 
   const getFuncionarioByCpf = async (cpf: string) => {
     try {
@@ -51,61 +63,60 @@ export function Perfil() {
     getFuncionarioByCpf(cpf);
   }, []);
 
+  const telefoneEmergencia = funcionario?.telefoneEmergencia
+    ? formatPhoneNumber(funcionario.telefoneEmergencia)
+    : "N/A";
+
+  const cpfEdit = funcionario?.cpf ? formatCPF(funcionario.cpf) : "N/A";
+
+  const dataEdit = funcionario?.dataNascimento
+    ? formatDate(funcionario.dataNascimento)
+    : "N/AS";
+
+  const cepEdit = funcionario?.cep ? formatCEP(funcionario.cep) : "N/A";
+
   return (
     <Container>
       <Section1>
         <ProfileImage width="80px" height="80px" />
         <Section>
-          <Text>Nome:</Text>
-          <Line>
-            <Text>Doc:</Text>
-            <Text>Nº doc:</Text>
-            <Text>CNH:</Text>
-            <Text>Nacionalidade:</Text>
-          </Line>
-          <Line>
-            <Text>E-mail:</Text>
-            <Text>Nascimento:</Text>
-          </Line>
+          <Text>{`Nome: ${funcionario?.nome}`}</Text>
+          <Text>{`CPF: ${cpfEdit}`}</Text>
+          <Text>{`CNH: ${funcionario?.cnh}`}</Text>
+          <Text>{`Nacionalidade: ${funcionario?.nacionalidade}`}</Text>
+          <Text>{`E-mail: ${funcionario?.email}`}</Text>
+          <Text>{`Aniversário: ${dataEdit}`}</Text>
         </Section>
       </Section1>
       <Section2>
-        <Line>
-          <Text>Enndereço:</Text>
-        </Line>
-        <Line>
-          <Text>Complemento:</Text>
-          <Text>CEP:</Text>
-          <Text>UF:</Text>
-          <Text>Cidade:</Text>
-        </Line>
+        <Text>{`Endereço: ${funcionario?.endereco}`}</Text>
+        <Text>{`Complemento: ${funcionario?.complemento}`}</Text>
+        <Text>{`CEP: ${cepEdit}`}</Text>
+        <Text>{`UF: ${funcionario?.uf}`}</Text>
+        <Text>{`Cidade: ${funcionario?.cidade}`}</Text>
       </Section2>
       <Section3>
         <Title title="EMERGÊNCIA" />
-        <Line>
-          <Text>Contato de emergência:</Text>
-        </Line>
-        <Line>
-          <Text>País de residência:</Text>
-          <Text>Telefone:</Text>
-        </Line>
+        <Text>{`Contato de emergência: ${funcionario?.enderecoEmergencia}`}</Text>
+        <Text>{`País de residência emergência: ${funcionario?.paisResidencia}`}</Text>
+        <Text>{`Telefone de emergência: ${telefoneEmergencia}`}</Text>
       </Section3>
       <Section4>
         <Title title="EMPRESA" />
-        <Text>Local de atuação</Text>
-        <Text>Equipe:</Text>
+        <Text>{`Local de atuação: ${funcionario?.localDeTrabalho}`}</Text>
+        <Text>{`Departamento: ${funcionario?.departamento}`}</Text>
       </Section4>
       <Section5>
         <Title
           title="PARA ALTERAÇÃO DE DADOS PESSOAIS, PROCURAR O RH."
-          color="#C3C3C3"
+          color="#c59688"
           $titleColor=""
           $maxWidth="600px"
         />
       </Section5>
       <Section4>
         <Title title="SEGURANÇA" />
-        <Text>Senha:</Text>
+        <Text>{`Senha: ${funcionario?.senha}`}</Text>
       </Section4>
       <Section5>
         <Button title="Editar senha" $minWidth="250px" disabled />

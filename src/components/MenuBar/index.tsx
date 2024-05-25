@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function MenuBar() {
   const navigate = useNavigate();
   const handleLogin = () => {
+    localStorage.removeItem("cpf");
     navigate("/login");
   };
   const handlePerfil = () => {
@@ -32,7 +33,7 @@ export function MenuBar() {
     navigate("/cadastro-espaco-fisico");
   };
   const handleTerceiros = () => {
-    navigate("/cadastro-terceiros");
+    navigate("/lista-terceiros");
   };
   const handleFinanceiro = () => {
     navigate("/financeiro");

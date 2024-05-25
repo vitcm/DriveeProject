@@ -1,4 +1,4 @@
-// APIs externas ao projeto
+// APIs externas ao projeto ----------------------------
 export const fetchStates = async () => {
   try {
     const response = await fetch(
@@ -36,6 +36,7 @@ export const fetchCountries = async () => {
   }
 };
 
+// MÉTODOS PÚBLICOS ------------------------------------------------------
 export const numberToCurrency = (value?: number) => {
   const numberFormat = (value || 0.0).toFixed(2).replace(".", ",");
 
@@ -51,7 +52,61 @@ export const numberToCurrency = (value?: number) => {
   return "R$ 0,00";
 };
 
-// Dados fixos
+export function formatPhoneNumber(phoneNumber: string) {
+  const cleaned = ("" + phoneNumber).replace(/\D/g, "");
+
+  const ddd = cleaned.slice(0, 2);
+  const firstPart = cleaned.slice(2, 3);
+  const middlePart = cleaned.slice(3, 7);
+  const lastPart = cleaned.slice(7, 11);
+
+  const formattedPhoneNumber = `(${ddd})${firstPart}.${middlePart}-${lastPart}`;
+
+  return formattedPhoneNumber;
+}
+
+export function formatCPF(cpf: string) {
+  const cleaned = ("" + cpf).replace(/\D/g, "");
+
+  const part1 = cleaned.slice(0, 3);
+  const part2 = cleaned.slice(3, 6);
+  const part3 = cleaned.slice(6, 9);
+  const part4 = cleaned.slice(9, 11);
+
+  const formattedCPF = `${part1}.${part2}.${part3}-${part4}`;
+
+  return formattedCPF;
+}
+
+export function formatDate(dateString: string) {
+  const [datePart] = dateString.split("T");
+  const [year, month, day] = datePart.split("-");
+
+  return `${day}/${month}`;
+}
+
+export function formatCEP(cep: string) {
+  const cleaned = ("" + cep).replace(/\D/g, "");
+
+  const part1 = cleaned.slice(0, 5);
+  const part2 = cleaned.slice(5, 8);
+
+  const formattedCEP = `${part1}-${part2}`;
+
+  return formattedCEP;
+}
+
+export function formatCNPJ(cnpj: string) {
+  const cleaned = ("" + cnpj).replace(/\D/g, "");
+  const part1 = cleaned.slice(0, 2);
+  const part2 = cleaned.slice(2, 5);
+  const part3 = cleaned.slice(5, 8);
+  const part4 = cleaned.slice(8, 12);
+  const part5 = cleaned.slice(12, 14);
+  return `${part1}.${part2}.${part3}/${part4}-${part5}`;
+}
+
+// Dados fixos --------------------------------------------------------------
 export const weekDays = () => {
   return [
     "Domingo",
@@ -337,4 +392,8 @@ export const dataReservationDetails = () => {
       filial: "3 - Marista",
     },
   ];
+};
+
+export const statusTerceirizado = () => {
+  return ["Ativo", "Inativo"];
 };

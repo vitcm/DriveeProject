@@ -83,7 +83,7 @@ public class FuncionarioController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/funcionario/cpf")
+    @GetMapping("/funcionario/cpf/{cpf}")
     public ResponseEntity<Funcionario> getFuncionarioByCpf(@PathVariable String cpf) {
         Optional<Funcionario> funcionario = funcionarioService.getFuncionarioByCpf(cpf);
         return funcionario.map(value -> new ResponseEntity<>(value, HttpStatus.OK))

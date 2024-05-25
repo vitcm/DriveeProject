@@ -3,14 +3,10 @@ import {
   Container,
   Section1,
   Section2,
-  Section3,
-  Section4,
   Section5,
   Text,
   Line,
   Options,
-  TextDiv,
-  TextDoc,
   OptionsContrato,
   ErrorColumn,
   ErrorTag,
@@ -18,40 +14,25 @@ import {
 import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
-import { fetchCities, fetchStates, occupationArea } from "../../utils/bibli";
+import {
+  fetchCities,
+  fetchStates,
+  occupationArea,
+  statusTerceirizado,
+} from "../../utils/bibli";
 import { DateSelect } from "../../components/SelectDate";
 import CheckboxImage from "../../components/CheckboxImage";
-import CheckBox from "../../components/CheckBox";
 import TextBox from "../../components/TextBox";
+import { useNavigate } from "react-router-dom";
+import { ModalMessage } from "../../components/ModalMessage";
 
 export function CadastroTerceiros() {
+  const navigate = useNavigate();
   const [states, setStates] = useState<string[]>([]);
   const [city, setCity] = useState<string[]>([]);
-  const [country, setCountry] = useState<string[]>([]);
-
-  const options = ["Opção 1", "Opção 2", "Opção 3", "Opção 4"];
-  const optionsServiços1 = [
-    "Troca de óleo e filtro",
-    "Troca de filtro de ar",
-    "Troca de filtro de combustível",
-    "Troca de filtro de cabine",
-    "Inspeção de freios",
-    "Troca de pastilhas e discos de freio",
-    "Alinhamento e balanceamento",
-  ];
-  const optionsServiços2 = [
-    "Troca de pneus",
-    "Inspeção e troca de fluidos",
-    "Troca de correias",
-    "Inspeção e substituição de peças desgastadas",
-    "Trocas de velas de ignição",
-    "Verificação de bateria",
-  ];
-  const optionsServiços3 = [
-    "Inspeção do sistema de ar condicionado",
-    "Diagnóstico de problemas",
-    "Outros. Especifique:",
-  ];
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<string>("");
+  const [errorType, setErrorType] = useState<string>("");
 
   const [errors, setErrors] = useState({
     nome: "",
@@ -68,6 +49,7 @@ export function CadastroTerceiros() {
     areaAtuacao: "",
     contrato: "",
     servicos: "",
+    status: "",
   });
 
   const [formData, setFormData] = useState({
@@ -85,6 +67,7 @@ export function CadastroTerceiros() {
     areaAtuacao: "",
     contrato: "",
     servicos: "",
+    status: "",
   });
 
   // mudança de input
@@ -108,10 +91,6 @@ export function CadastroTerceiros() {
     setFormData({ ...formData, [imageName]: imagePath });
   };
 
-  const handleAddServicos = (servicos: string) => {
-    setFormData({ ...formData, servicos: servicos });
-  };
-
   //carregar dados do select de ufs
   async function stateSet() {
     const options = await fetchStates();
@@ -132,6 +111,226 @@ export function CadastroTerceiros() {
     setCity(citiesNames);
   }
 
+  const showModalResultError = () => {
+    setModalType("error");
+    setShowModal(true);
+  };
+
+  const showModalResultSuccess = () => {
+    setModalType("success");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (modalType === "success") {
+      navigate("/lista-terceiros");
+    }
+  };
+
+  const cadastrarTerceirizada = async () => {
+    const terceiros = {
+      nomeEmpresa: formData.nome,
+      cnpj: formData.cnpj,
+      inicioContrato: formData.inicioContrato,
+      fimContrato: formData.fimContrato,
+      funcionario: formData.responsavel,
+      contrato: formData.areaAtuacao,
+      areaAtuacao: formData.areaAtuacao,
+      ativo: formData.status,
+    };
+
+    const enderecoTerceiro = {
+      endereco: formData.endereco,
+      complemento: formData.complemento,
+      cep: formData.cep,
+      cidade: formData.cidade,
+      uf: formData.uf,
+    };
+
+    const telefoneTerceiro = {
+      telefone: formData.telefone,
+    };
+
+    const servicosTerceiro = {
+      servico: formData.servicos,
+    };
+
+    //Cadastrar Filial
+    try {
+      const response = await fetch("http://localhost:8080/terceiros/cadastro", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(terceiros),
+      });
+
+      if (response.ok) {
+        console.log("Empresa terceirizada cadastrada com sucesso");
+        try {
+          const response = await fetch(
+            "http://localhost:8080/terceiros/cadastroEndereco",
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(enderecoTerceiro),
+            }
+          );
+
+          if (response.ok) {
+            console.log("Endereço cadastrado com sucesso");
+            try {
+              const response = await fetch(
+                "http://localhost:8080/terceiros/cadastroTelefone",
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(telefoneTerceiro),
+                }
+              );
+
+              if (response.ok) {
+                console.log("Telefone cadastrado com sucesso");
+                try {
+                  const response = await fetch(
+                    "http://localhost:8080/terceiros/cadastroServico",
+                    {
+                      method: "PUT",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(servicosTerceiro),
+                    }
+                  );
+
+                  if (response.ok) {
+                    console.log("Serviços cadastrados com sucesso");
+                    showModalResultSuccess();
+                  } else {
+                    console.error("Erro ao cadastrar serviços");
+                    setErrorType("Erro ao cadastrar serviços");
+                    showModalResultError();
+                    deletarTelefone();
+                    deletarEndereco();
+                    deletarEmpresaTerceirizada();
+                  }
+                } catch (error) {
+                  console.error("Erro ao enviar requisição:", error);
+                  setErrorType(`Erro ao enviar requisição: ${error}`);
+                  showModalResultError();
+                  deletarTelefone();
+                  deletarEndereco();
+                  deletarEmpresaTerceirizada();
+                }
+              } else {
+                console.error("Erro ao cadastrar telefone");
+                setErrorType("Erro ao cadastrar telefone");
+                showModalResultError();
+                deletarEndereco();
+                deletarEmpresaTerceirizada();
+              }
+            } catch (error) {
+              console.error("Erro ao enviar requisição:", error);
+              setErrorType(`Erro ao enviar requisição: ${error}`);
+              showModalResultError();
+              deletarEndereco();
+              deletarEmpresaTerceirizada();
+            }
+          } else {
+            console.error("Erro ao cadastrar endereço");
+            setErrorType(`Erro ao cadastrar endereço`);
+            showModalResultError();
+            deletarEmpresaTerceirizada();
+          }
+        } catch (error) {
+          console.error("Erro ao enviar requisição:", error);
+          setErrorType(`Erro ao enviar requisição: ${error}`);
+          showModalResultError();
+          deletarEmpresaTerceirizada();
+        }
+      } else {
+        console.error("Erro ao cadastrar empresa terceirizada.");
+        setErrorType(`Erro ao cadastrar empresa terceirizada.`);
+        showModalResultError();
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+      setErrorType(`Erro ao enviar requisição: ${error}`);
+      showModalResultError();
+    }
+  };
+
+  const deletarTelefone = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/terceiros/deletarTelefoneTerceiro",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Telefone deletada com sucesso");
+      } else {
+        console.error("Erro ao deletar telefone");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
+
+  const deletarEndereco = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/terceiros/deletarEnderecoTerceiro",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Endereço deletado com sucesso");
+      } else {
+        console.error("Erro ao deletar endereço");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
+
+  const deletarEmpresaTerceirizada = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/terceiros/deletarTerceiro",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Empresa terceirizada deletada com sucesso");
+      } else {
+        console.error("Erro ao deletar empresa");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar requisição:", error);
+    }
+  };
+
   //Faz o submit dos dados da página
   const handleSubmit = () => {
     let hasError = false;
@@ -150,6 +349,7 @@ export function CadastroTerceiros() {
       areaAtuacao: "",
       contrato: "",
       servicos: "",
+      status: "",
     });
 
     // Verifica se os campos obrigatórios estão preenchidos
@@ -265,11 +465,19 @@ export function CadastroTerceiros() {
       hasError = true;
     }
 
+    if (!formData.status) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        status: "É obrigatório marcar status.",
+      }));
+      hasError = true;
+    }
+
     if (hasError) {
       return;
     }
 
-    console.log("Dados do formulário:", formData);
+    cadastrarTerceirizada();
   };
 
   useEffect(() => {
@@ -438,6 +646,16 @@ export function CadastroTerceiros() {
             {errors.servicos && <ErrorTag>{errors.servicos}</ErrorTag>}
           </ErrorColumn>
         </Options>
+        <ErrorColumn>
+          <Select
+            title="Status:"
+            options={statusTerceirizado()}
+            name="status"
+            value={formData.status}
+            onChange={handleInputChange}
+          />
+          {errors.status && <ErrorTag>{errors.status}</ErrorTag>}
+        </ErrorColumn>
       </Section2>
       <Section5>
         <Button
@@ -447,6 +665,22 @@ export function CadastroTerceiros() {
           onClick={handleSubmit}
         />
       </Section5>
+      {showModal && (
+        <ModalMessage
+          type={modalType}
+          title={
+            modalType === "error"
+              ? "Ops! Tivemos um erro no cadastro."
+              : "Oba, o cadastro deu certo!"
+          }
+          message={
+            modalType === "error"
+              ? `Tivemos um erro no cadastro: ${errorType}`
+              : "Parabéns, seu cadastro deu certo!"
+          }
+          onClose={handleCloseModal}
+        />
+      )}
     </Container>
   );
 }

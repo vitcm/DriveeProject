@@ -9,6 +9,9 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  font-family: "Bai Jamjuree";
+  font-size: 14px;
 `;
 
 export const Section1 = styled.div`

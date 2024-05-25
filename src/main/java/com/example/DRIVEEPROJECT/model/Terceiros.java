@@ -2,8 +2,11 @@ package com.example.DRIVEEPROJECT.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -16,10 +19,10 @@ public class Terceiros {
     private String cnpj;
     private Date inicioContrato;
     private Date fimContrato;
-    private long idFuncionario;
+    private String funcionario;
     private String contrato;
-    private long areaAtuacao;
-    private boolean ativo;
+    private String areaAtuacao;
+    private String ativo;
 
     public long getId() {
         return id;
@@ -61,12 +64,12 @@ public class Terceiros {
         this.fimContrato = fimContrato;
     }
 
-    public long getIdFuncionario() {
-        return idFuncionario;
+    public String getFuncionario() {
+        return funcionario;
     }
 
-    public void setIdFuncionario(long idFuncionario) {
-        this.idFuncionario = idFuncionario;
+    public void setFuncionario(String idFuncionario) {
+        this.funcionario = idFuncionario;
     }
 
     public String getContrato() {
@@ -77,19 +80,19 @@ public class Terceiros {
         this.contrato = contrato;
     }
 
-    public long getAreaAtuacao() {
+    public String getAreaAtuacao() {
         return areaAtuacao;
     }
 
-    public void setAreaAtuacao(long areaAtuacao) {
+    public void setAreaAtuacao(String areaAtuacao) {
         this.areaAtuacao = areaAtuacao;
     }
 
-    public boolean isAtivo() {
+    public String isAtivo() {
         return ativo;
     }
 
-    public void setAtivo(boolean ativo) {
+    public void setAtivo(String ativo) {
         this.ativo = ativo;
     }
 
