@@ -24,6 +24,14 @@ public class Terceiros {
     private String areaAtuacao;
     private String ativo;
 
+    public String getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
+    }
+
     public long getId() {
         return id;
     }
@@ -88,13 +96,7 @@ public class Terceiros {
         this.areaAtuacao = areaAtuacao;
     }
 
-    public String isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(String ativo) {
-        this.ativo = ativo;
-    }
+    
 
     
 }
