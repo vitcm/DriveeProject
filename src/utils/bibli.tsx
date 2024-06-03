@@ -121,7 +121,7 @@ export const weekDays = () => {
 
 export const timeOfDay = () => {
   const times = [];
-  for (let hour = 6; hour <= 20; hour++) {
+  for (let hour = 0; hour < 24; hour++) {
     times.push(`${hour}:00`);
   }
   return times;

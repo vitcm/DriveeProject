@@ -17,6 +17,7 @@ import { CadastroEspacoFis } from "../pages/CadastroEspacoFis";
 import { CadastroTerceiros } from "../pages/CadastroTerceiros";
 import { Financeiro } from "../pages/Financeiro";
 import { ListaTerceirizados } from "../pages/ListaTerceirizados";
+import { ListaEspacoFisico } from "../pages/ListaEspacoFis";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -74,6 +75,10 @@ const AppRoutes: React.FC = () => {
         <Route
           path="/lista-terceiros"
           element={<RouteRender Component={ListaTerceirizados} />}
+        />
+        <Route
+          path="/lista-espaco-fisico"
+          element={<RouteRender Component={ListaEspacoFisico} />}
         />
         <Route
           path="/financeiro"

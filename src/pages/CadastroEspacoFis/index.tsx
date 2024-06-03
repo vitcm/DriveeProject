@@ -64,7 +64,7 @@ export function CadastroEspacoFis() {
   const handleCloseModal = () => {
     setShowModal(false);
     if (modalType === "success") {
-      navigate("/perfil");
+      navigate("/lista-espaco-fisico");
     }
   };
 

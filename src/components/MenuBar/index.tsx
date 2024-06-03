@@ -30,7 +30,7 @@ export function MenuBar() {
     navigate("/controle-frota");
   };
   const handleEspacoFisico = () => {
-    navigate("/cadastro-espaco-fisico");
+    navigate("/lista-espaco-fisico");
   };
   const handleTerceiros = () => {
     navigate("/lista-terceiros");
