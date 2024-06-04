@@ -535,7 +535,7 @@ export function CadastroTerceiros() {
           <ErrorColumn>
             <Input
               title="CEP:"
-              type="text"
+              type="number"
               name="cep"
               value={formData.cep}
               onChange={handleInputChange}
@@ -568,7 +568,7 @@ export function CadastroTerceiros() {
           <ErrorColumn>
             <Input
               title="Telefone:"
-              type="text"
+              type="number"
               name="telefone"
               value={formData.telefone}
               onChange={handleInputChange}

@@ -448,7 +448,7 @@ export function CadastroEspacoFis() {
           <ErrorColumn>
             <Input
               title="CEP:"
-              type="text"
+              type="number"
               name="cep"
               value={formData.cep}
               onChange={handleInputChange}

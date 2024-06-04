@@ -576,7 +576,7 @@ export function CadastroFuncionario() {
             <ErrorColumn>
               <Input
                 title="Nº doc:"
-                type="text"
+                type="number"
                 name="nDoc"
                 value={formData.nDoc}
                 onChange={handleInputChange}
@@ -586,7 +586,7 @@ export function CadastroFuncionario() {
             <ErrorColumn>
               <Input
                 title="CNH:"
-                type="text"
+                type="number"
                 name="cnh"
                 value={formData.cnh}
                 onChange={handleInputChange}
@@ -663,7 +663,7 @@ export function CadastroFuncionario() {
           <ErrorColumn>
             <Input
               title="CEP:"
-              type="text"
+              type="number"
               name="cep"
               value={formData.cep}
               onChange={handleInputChange}
